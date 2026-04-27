@@ -2769,54 +2769,175 @@ document.querySelectorAll('.ex-view-btn').forEach(btn => {
   });
 });
 
-/* ── EX-9. SONG SUGGESTIONS ──────────────────────────────────────────────── */
+/* ── EX-9. SONG SUGGESTIONS (static database) ────────────────────────────── */
 let _lastSongKey = null, _lastSongScale = null;
+
+const SONG_DB = {
+  // key → [ {title, artist, genre} ]  — curated rock/metal classics
+  'A': [
+    {title:'Back in Black',          artist:'AC/DC',             genre:'Hard Rock'},
+    {title:'Whole Lotta Love',       artist:'Led Zeppelin',      genre:'Hard Rock'},
+    {title:'Highway to Hell',        artist:'AC/DC',             genre:'Hard Rock'},
+    {title:'Iron Man',               artist:'Black Sabbath',     genre:'Heavy Metal'},
+    {title:'Crazy Train',            artist:'Ozzy Osbourne',     genre:'Heavy Metal'},
+    {title:'Sweet Home Alabama',     artist:'Lynyrd Skynyrd',    genre:'Southern Rock'},
+    {title:'You Shook Me All Night', artist:'AC/DC',             genre:'Hard Rock'},
+    {title:'La Grange',              artist:'ZZ Top',            genre:'Blues Rock'},
+    {title:'Paranoid',               artist:'Black Sabbath',     genre:'Heavy Metal'},
+    {title:'Walk This Way',          artist:'Aerosmith',         genre:'Hard Rock'},
+  ],
+  'E': [
+    {title:'Smoke on the Water',     artist:'Deep Purple',       genre:'Hard Rock'},
+    {title:'Purple Haze',            artist:'Jimi Hendrix',      genre:'Psychedelic Rock'},
+    {title:'Enter Sandman',          artist:'Metallica',         genre:'Heavy Metal'},
+    {title:'Jump',                   artist:'Van Halen',         genre:'Hard Rock'},
+    {title:'Eruption',               artist:'Van Halen',         genre:'Hard Rock'},
+    {title:'The Trooper',            artist:'Iron Maiden',       genre:'Heavy Metal'},
+    {title:'Breaking the Law',       artist:'Judas Priest',      genre:'Heavy Metal'},
+    {title:'Ace of Spades',          artist:'Motörhead',         genre:'Heavy Metal'},
+    {title:'The Wicker Man',         artist:'Iron Maiden',       genre:'Heavy Metal'},
+    {title:'Balls to the Wall',      artist:'Accept',            genre:'Heavy Metal'},
+  ],
+  'D': [
+    {title:'Master of Puppets',      artist:'Metallica',         genre:'Thrash Metal'},
+    {title:'Creeping Death',         artist:'Metallica',         genre:'Thrash Metal'},
+    {title:'Black Dog',              artist:'Led Zeppelin',      genre:'Hard Rock'},
+    {title:'Raining Blood',          artist:'Slayer',            genre:'Thrash Metal'},
+    {title:'War Pigs',               artist:'Black Sabbath',     genre:'Heavy Metal'},
+    {title:'Bark at the Moon',       artist:'Ozzy Osbourne',     genre:'Heavy Metal'},
+    {title:'Painkiller',             artist:'Judas Priest',      genre:'Heavy Metal'},
+    {title:'Hangar 18',              artist:'Megadeth',          genre:'Thrash Metal'},
+    {title:'Cowboys from Hell',      artist:'Pantera',           genre:'Groove Metal'},
+    {title:'Laid to Rest',           artist:'Lamb of God',       genre:'Groove Metal'},
+  ],
+  'G': [
+    {title:'Stairway to Heaven',     artist:'Led Zeppelin',      genre:'Hard Rock'},
+    {title:'Sweet Child O\' Mine',   artist:'Guns N\' Roses',    genre:'Hard Rock'},
+    {title:'November Rain',          artist:'Guns N\' Roses',    genre:'Hard Rock'},
+    {title:'Comfortably Numb',       artist:'Pink Floyd',        genre:'Rock'},
+    {title:'Knockin\' on Heaven\'s Door', artist:'Guns N\' Roses', genre:'Rock'},
+    {title:'Wish You Were Here',     artist:'Pink Floyd',        genre:'Rock'},
+    {title:'Money for Nothing',      artist:'Dire Straits',      genre:'Rock'},
+    {title:'All Along the Watchtower', artist:'Jimi Hendrix',    genre:'Blues Rock'},
+    {title:'Bohemian Rhapsody',      artist:'Queen',             genre:'Hard Rock'},
+    {title:'Under the Bridge',       artist:'Red Hot Chili Peppers', genre:'Alternative Rock'},
+  ],
+  'C': [
+    {title:'Killing in the Name',    artist:'Rage Against the Machine', genre:'Funk Metal'},
+    {title:'Bombtrack',              artist:'Rage Against the Machine', genre:'Funk Metal'},
+    {title:'Welcome to the Jungle',  artist:'Guns N\' Roses',    genre:'Hard Rock'},
+    {title:'Cochise',                artist:'Audioslave',        genre:'Hard Rock'},
+    {title:'Like a Stone',           artist:'Audioslave',        genre:'Hard Rock'},
+    {title:'Guerrilla Radio',        artist:'Rage Against the Machine', genre:'Funk Metal'},
+    {title:'Halo',                   artist:'Disturbed',         genre:'Nu Metal'},
+    {title:'Land of Confusion',      artist:'Disturbed',         genre:'Nu Metal'},
+    {title:'Down with the Sickness', artist:'Disturbed',         genre:'Nu Metal'},
+    {title:'Sober',                  artist:'Tool',              genre:'Alternative Metal'},
+  ],
+  'B': [
+    {title:'Nothing Else Matters',   artist:'Metallica',         genre:'Heavy Metal'},
+    {title:'Fade to Black',          artist:'Metallica',         genre:'Heavy Metal'},
+    {title:'One',                    artist:'Metallica',         genre:'Heavy Metal'},
+    {title:'The Unforgiven',         artist:'Metallica',         genre:'Heavy Metal'},
+    {title:'Sanitarium',             artist:'Metallica',         genre:'Heavy Metal'},
+    {title:'Tornado of Souls',       artist:'Megadeth',          genre:'Thrash Metal'},
+    {title:'Rust in Peace',          artist:'Megadeth',          genre:'Thrash Metal'},
+    {title:'Orion',                  artist:'Metallica',         genre:'Heavy Metal'},
+    {title:'To Live is to Die',      artist:'Metallica',         genre:'Heavy Metal'},
+    {title:'The Call of Ktulu',      artist:'Metallica',         genre:'Heavy Metal'},
+  ],
+  'F#': [
+    {title:'Holy Wars',              artist:'Megadeth',          genre:'Thrash Metal'},
+    {title:'Symphony of Destruction',artist:'Megadeth',          genre:'Thrash Metal'},
+    {title:'Peace Sells',            artist:'Megadeth',          genre:'Thrash Metal'},
+    {title:'Battery',                artist:'Metallica',         genre:'Thrash Metal'},
+    {title:'Disposable Heroes',      artist:'Metallica',         genre:'Thrash Metal'},
+    {title:'Fear of the Dark',       artist:'Iron Maiden',       genre:'Heavy Metal'},
+    {title:'Number of the Beast',    artist:'Iron Maiden',       genre:'Heavy Metal'},
+    {title:'Run to the Hills',       artist:'Iron Maiden',       genre:'Heavy Metal'},
+    {title:'Aces High',              artist:'Iron Maiden',       genre:'Heavy Metal'},
+    {title:'Hallowed Be Thy Name',   artist:'Iron Maiden',       genre:'Heavy Metal'},
+  ],
+  'F': [
+    {title:'Seek & Destroy',         artist:'Metallica',         genre:'Heavy Metal'},
+    {title:'Whiplash',               artist:'Metallica',         genre:'Thrash Metal'},
+    {title:'Motorbreath',            artist:'Metallica',         genre:'Thrash Metal'},
+    {title:'The Four Horsemen',      artist:'Metallica',         genre:'Thrash Metal'},
+    {title:'Metal Militia',          artist:'Metallica',         genre:'Thrash Metal'},
+    {title:'Killers',                artist:'Iron Maiden',       genre:'Heavy Metal'},
+    {title:'Wrathchild',             artist:'Iron Maiden',       genre:'Heavy Metal'},
+    {title:'Invaders',               artist:'Iron Maiden',       genre:'Heavy Metal'},
+    {title:'The Prisoner',           artist:'Iron Maiden',       genre:'Heavy Metal'},
+    {title:'22 Acacia Avenue',       artist:'Iron Maiden',       genre:'Heavy Metal'},
+  ],
+  'C#': [
+    {title:'Angel of Death',         artist:'Slayer',            genre:'Thrash Metal'},
+    {title:'Reign in Blood',         artist:'Slayer',            genre:'Thrash Metal'},
+    {title:'South of Heaven',        artist:'Slayer',            genre:'Thrash Metal'},
+    {title:'Seasons in the Abyss',   artist:'Slayer',            genre:'Thrash Metal'},
+    {title:'Hammer Smashed Face',    artist:'Cannibal Corpse',   genre:'Death Metal'},
+    {title:'Toxic Waltz',            artist:'Exodus',            genre:'Thrash Metal'},
+    {title:'Strike of the Beast',    artist:'Exodus',            genre:'Thrash Metal'},
+    {title:'Bonded by Blood',        artist:'Exodus',            genre:'Thrash Metal'},
+    {title:'The Haunting',           artist:'Kamelot',           genre:'Power Metal'},
+    {title:'March of Mephisto',      artist:'Kamelot',           genre:'Power Metal'},
+  ],
+  'G#': [
+    {title:'Walk',                   artist:'Pantera',           genre:'Groove Metal'},
+    {title:'Vulgar Display of Power',artist:'Pantera',           genre:'Groove Metal'},
+    {title:'5 Minutes Alone',        artist:'Pantera',           genre:'Groove Metal'},
+    {title:'This Love',              artist:'Pantera',           genre:'Groove Metal'},
+    {title:'A New Level',            artist:'Pantera',           genre:'Groove Metal'},
+    {title:'Stronger Than All',      artist:'Pantera',           genre:'Groove Metal'},
+    {title:'Becoming',               artist:'Pantera',           genre:'Groove Metal'},
+    {title:'Domination',             artist:'Pantera',           genre:'Groove Metal'},
+    {title:'I\'m Broken',            artist:'Pantera',           genre:'Groove Metal'},
+    {title:'Suicide Note Pt. I',     artist:'Pantera',           genre:'Groove Metal'},
+  ],
+  'D#': [
+    {title:'Toxicity',               artist:'System of a Down',  genre:'Nu Metal'},
+    {title:'Chop Suey!',             artist:'System of a Down',  genre:'Nu Metal'},
+    {title:'B.Y.O.B.',               artist:'System of a Down',  genre:'Nu Metal'},
+    {title:'Aerials',                artist:'System of a Down',  genre:'Nu Metal'},
+    {title:'Prison Song',            artist:'System of a Down',  genre:'Nu Metal'},
+    {title:'Sugar',                  artist:'System of a Down',  genre:'Nu Metal'},
+    {title:'Psycho',                 artist:'System of a Down',  genre:'Nu Metal'},
+    {title:'Question!',              artist:'System of a Down',  genre:'Nu Metal'},
+    {title:'Violent Pornography',    artist:'System of a Down',  genre:'Nu Metal'},
+    {title:'Dreaming',               artist:'System of a Down',  genre:'Nu Metal'},
+  ],
+  'A#': [
+    {title:'Black Hole Sun',         artist:'Soundgarden',       genre:'Alternative Metal'},
+    {title:'Rusty Cage',             artist:'Soundgarden',       genre:'Alternative Metal'},
+    {title:'Spoonman',               artist:'Soundgarden',       genre:'Alternative Metal'},
+    {title:'Outshined',              artist:'Soundgarden',       genre:'Alternative Metal'},
+    {title:'Fell on Black Days',     artist:'Soundgarden',       genre:'Alternative Metal'},
+    {title:'Jesus Christ Pose',      artist:'Soundgarden',       genre:'Alternative Metal'},
+    {title:'Burden in My Hand',      artist:'Soundgarden',       genre:'Alternative Metal'},
+    {title:'Pretty Noose',           artist:'Soundgarden',       genre:'Alternative Metal'},
+    {title:'My Wave',                artist:'Soundgarden',       genre:'Alternative Metal'},
+    {title:'Blow Up the Outside World', artist:'Soundgarden',    genre:'Alternative Metal'},
+  ],
+};
+
+// Alias enharmonic keys
+SONG_DB['Db'] = SONG_DB['C#'];
+SONG_DB['Eb'] = SONG_DB['D#'];
+SONG_DB['Gb'] = SONG_DB['F#'];
+SONG_DB['Ab'] = SONG_DB['G#'];
+SONG_DB['Bb'] = SONG_DB['A#'];
 
 async function fetchSongSuggestions(key, scale) {
   const container = document.getElementById('songs-container');
   const subtitle  = document.getElementById('songs-subtitle');
-  if (_lastSongKey === key && _lastSongScale === scale) return; // no change
+  if (_lastSongKey === key && _lastSongScale === scale) return;
   _lastSongKey = key; _lastSongScale = scale;
 
   const scaleNames = { minor_penta: 'molli', major_penta: 'duuri', blues: 'blues' };
   subtitle.textContent = `${key} ${scaleNames[scale] || scale} · Rock · Heavy · Metal`;
-  container.innerHTML = '<div class="songs-loading"><div class="spinner"></div>Haetaan kappaleita…</div>';
 
-  const scaleDesc = scale === 'major_penta' ? 'major / major pentatonic'
-    : scale === 'blues' ? 'minor blues'
-    : 'minor / minor pentatonic';
-
-  const prompt = `List exactly 10 famous rock, heavy metal, or hard rock guitar songs that are primarily in the key of ${key} ${scaleDesc}. These should be real, well-known songs that guitar players commonly learn.
-
-Return ONLY a JSON array with no other text, like this:
-[{"title":"Song Name","artist":"Artist Name","key":"${key}","genre":"Heavy Metal"}]
-
-Requirements:
-- Exactly 10 songs
-- Must be genuine songs in key of ${key} ${scaleDesc}
-- Focus on guitar-driven rock, metal, hard rock
-- Include variety of artists
-- No duplicates`;
-
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-    const data = await res.json();
-    const text = (data.content || []).map(b => b.text || '').join('');
-    const jsonMatch = text.match(/\[[\s\S]*\]/);
-    if (!jsonMatch) throw new Error('No JSON found');
-    const songs = JSON.parse(jsonMatch[0]).slice(0, 10);
-    renderSongCards(songs);
-  } catch(e) {
-    container.innerHTML = `<div class="songs-loading" style="color:#6a4040">Kappaleiden haku epäonnistui.</div>`;
-  }
+  const songs = SONG_DB[key] || SONG_DB['A'];
+  renderSongCards(songs.slice(0, 10));
 }
 
 function renderSongCards(songs) {
