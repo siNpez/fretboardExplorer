@@ -331,6 +331,407 @@
   .hover-pill.is-scale .hover-pill-int { color: rgba(74,158,202,.85); }
   .hover-pill-src { font-size: .62rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .12em; opacity: .55; }
 
+
+
+  /* ─── Chords Page ──────────────────────────────────────────────────────────── */
+  .chord-type-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 28px;
+  }
+  .chord-type-btn {
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    cursor: pointer;
+    background: var(--surface);
+    transition: all var(--transition);
+  }
+  .chord-type-btn:hover { border-color: rgba(74,158,202,.5); color: var(--text); }
+  .chord-type-btn.active {
+    background: var(--surface2);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .chord-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 14px;
+  }
+  .chord-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color var(--transition), transform var(--transition);
+  }
+  .chord-card:hover {
+    border-color: rgba(74,158,202,.4);
+    transform: translateY(-2px);
+  }
+  .chord-card-name {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: .05em;
+    padding: 10px 12px 6px;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+  }
+  .chord-card-name span {
+    font-size: .65rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    letter-spacing: .1em;
+    margin-left: 6px;
+    vertical-align: middle;
+    text-transform: uppercase;
+  }
+  .chord-card-body {
+    padding: 10px 12px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .chord-diagram-wrap { width: 100%; display: flex; justify-content: center; }
+  .chord-piano-wrap   { width: 100%; display: flex; justify-content: center; }
+  .chord-notes-row {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .chord-note-pip {
+    font-family: var(--font-mono);
+    font-size: .62rem;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    letter-spacing: .05em;
+  }
+  .chord-note-pip.is-root {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-glow);
+  }
+
+
+  /* ─── Navigation ─────────────────────────────────────────────────────────── */
+  .site-nav {
+    display: flex;
+    gap: 4px;
+    padding: 16px 0 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+  }
+  .nav-tab {
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 8px 18px;
+    border-radius: 6px 6px 0 0;
+    border: 1px solid transparent;
+    border-bottom: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    background: transparent;
+    transition: color var(--transition), background var(--transition), border-color var(--transition);
+    position: relative;
+    bottom: -1px;
+  }
+  .nav-tab:hover { color: var(--text); background: var(--surface2); }
+  .nav-tab.active {
+    color: var(--text);
+    background: var(--bg);
+    border-color: var(--border);
+    border-bottom-color: var(--bg);
+  }
+
+
+  /* ─── Exercise view toggle ───────────────────────────────────────────────── */
+  .ex-view-toggle {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 28px;
+  }
+  .ex-view-btn {
+    font-family: var(--font-mono);
+    font-size: .78rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    padding: 8px 22px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    cursor: pointer;
+    background: var(--surface);
+    transition: all var(--transition);
+  }
+  .ex-view-btn:hover { color: var(--text); border-color: rgba(74,158,202,.4); }
+  .ex-view-btn.active {
+    background: var(--surface2);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* ─── Songs section ──────────────────────────────────────────────────────── */
+  .songs-section {
+    margin-top: 52px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+  }
+  .songs-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .songs-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: .06em;
+    color: var(--text);
+  }
+  .songs-subtitle {
+    font-size: .65rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .12em;
+  }
+  .songs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 10px;
+  }
+  .song-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-decoration: none;
+    transition: border-color var(--transition), background var(--transition), transform var(--transition);
+  }
+  .song-card:hover {
+    border-color: rgba(74,158,202,.5);
+    background: var(--surface2);
+    transform: translateY(-1px);
+  }
+  .song-num {
+    font-family: var(--font-mono);
+    font-size: .65rem;
+    color: var(--text-muted);
+    width: 16px;
+    flex-shrink: 0;
+    text-align: right;
+  }
+  .song-info { flex: 1; min-width: 0; }
+  .song-title {
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .song-artist {
+    font-size: .72rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    margin-top: 2px;
+    letter-spacing: .04em;
+  }
+  .song-badge {
+    font-size: .58rem;
+    font-family: var(--font-mono);
+    padding: 2px 7px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    flex-shrink: 0;
+    letter-spacing: .06em;
+  }
+  .song-arrow {
+    font-size: .9rem;
+    color: var(--text-muted);
+    flex-shrink: 0;
+    transition: color var(--transition), transform var(--transition);
+  }
+  .song-card:hover .song-arrow { color: var(--scale-note); transform: translateX(2px); }
+  .songs-loading {
+    font-family: var(--font-mono);
+    font-size: .75rem;
+    color: var(--text-muted);
+    padding: 20px 0;
+    letter-spacing: .06em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spinner {
+    width: 14px; height: 14px;
+    border: 2px solid var(--border);
+    border-top-color: var(--scale-note);
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+  }
+
+
+  /* ─── Exercises Page ──────────────────────────────────────────────────────── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .ex-header { margin-bottom: 28px; }
+  .ex-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    letter-spacing: .04em;
+    color: var(--text);
+    line-height: 1;
+  }
+  .ex-subtitle {
+    font-size: .72rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    margin-top: 6px;
+  }
+
+  .ex-controls {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    padding: 16px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 36px;
+  }
+  .ex-ctrl { display: flex; flex-direction: column; gap: 6px; }
+  .ex-ctrl label {
+    font-size: .62rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .12em;
+  }
+  .ex-ctrl select {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: .8rem;
+    padding: 6px 10px;
+    cursor: pointer;
+  }
+
+  .ex-section { margin-bottom: 52px; }
+  .ex-section-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: .06em;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .ex-section-desc {
+    font-size: .72rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    letter-spacing: .05em;
+    margin-bottom: 24px;
+  }
+
+  .box-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .box-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color var(--transition);
+  }
+  .box-card:hover { border-color: rgba(74,158,202,.45); }
+  .box-card-header {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 14px 16px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .box-card-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    letter-spacing: .06em;
+    color: var(--accent);
+  }
+  .box-card-desc {
+    font-size: .62rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .box-card-body { padding: 14px 16px 16px; }
+  .box-fret-mini { margin-bottom: 12px; }
+  .tab-label {
+    font-size: .6rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    margin-bottom: 6px;
+  }
+
+  .extended-section { margin-top: 16px; }
+  .ext-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .ext-card-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 14px 20px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .ext-card-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    letter-spacing: .06em;
+    color: var(--scale-note);
+  }
+  .ext-card-desc {
+    font-size: .62rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .ext-card-body { padding: 16px 20px 20px; overflow-x: auto; }
+
   @media (max-width: 700px) {
     .app { padding: 0 12px 40px; }
     header { flex-direction: column; gap: 4px; }
@@ -341,7 +742,15 @@
 <body>
 <div class="app">
 
-  <!-- Header -->
+  <!-- Navigation -->
+  <nav class="site-nav">
+    <button class="nav-tab active" data-page="explorer">Fretboard Explorer</button>
+    <button class="nav-tab" data-page="exercises">Harjoituksia</button>
+    <button class="nav-tab" data-page="chords">Soinnut</button>
+  </nav>
+
+  <!-- Page: Fretboard Explorer -->
+  <div class="page active" id="page-explorer">
   <header>
     <h1>Fretboard Explorer</h1>
     <span class="subtitle">Guitar Scale Visualizer</span>
@@ -502,6 +911,101 @@
       <svg id="piano-svg" xmlns="http://www.w3.org/2000/svg"></svg>
     </div>
   </div>
+
+  </div><!-- /page-explorer -->
+
+  <!-- Page: Harjoituksia -->
+  <div class="page" id="page-exercises">
+    <div class="ex-header">
+      <div class="ex-title">Harjoituksia</div>
+      <div class="ex-subtitle">Pentatoniset skaalat · Boxit &amp; Extended 3NPS</div>
+    </div>
+
+    <div class="ex-controls">
+      <div class="ex-ctrl">
+        <label>Sävellaji</label>
+        <select id="ex-key">
+          <option value="A">A</option>
+          <option value="E">E</option>
+          <option value="D">D</option>
+          <option value="G">G</option>
+          <option value="C">C</option>
+          <option value="B">B</option>
+          <option value="F#">F# / Gb</option>
+          <option value="F">F</option>
+          <option value="C#">C# / Db</option>
+          <option value="G#">G# / Ab</option>
+          <option value="D#">D# / Eb</option>
+          <option value="A#">A# / Bb</option>
+        </select>
+      </div>
+      <div class="ex-ctrl">
+        <label>Skaala</label>
+        <select id="ex-scale">
+          <option value="minor_penta">Minor Pentatonic</option>
+          <option value="major_penta">Major Pentatonic</option>
+          <option value="blues">Blues</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- View toggle -->
+    <div class="ex-view-toggle">
+      <button class="ex-view-btn active" id="ex-view-box" data-view="box">Box-muodot</button>
+      <button class="ex-view-btn" id="ex-view-3nps" data-view="3nps">3 ääntä / kieli (3NPS)</button>
+    </div>
+
+    <!-- Box shapes section -->
+    <div class="ex-section" id="ex-boxes-section">
+      <div class="ex-section-title">Box-muodot</div>
+      <div class="ex-section-desc">2 ääntä per kieli · Nouseva &amp; laskeva juoksu</div>
+      <div class="box-grid" id="box-grid"></div>
+    </div>
+
+    <!-- Extended 3NPS section -->
+    <div class="ex-section" id="ex-extended-section" style="display:none">
+      <div class="ex-section-title">Extended — 3 ääntä per kieli</div>
+      <div class="ex-section-desc">Diagonaaliset juoksut · Kattaa koko otelaudan</div>
+      <div class="extended-section" id="extended-grid"></div>
+    </div>
+
+    <!-- Songs section -->
+    <div class="songs-section">
+      <div class="songs-header">
+        <span class="songs-title">Kappaleita tässä sävellajissa</span>
+        <span class="songs-subtitle" id="songs-subtitle">Rock · Heavy · Metal</span>
+      </div>
+      <div id="songs-container">
+        <div class="songs-loading"><div class="spinner"></div>Haetaan kappaleita…</div>
+      </div>
+    </div>
+
+  </div><!-- /page-exercises -->
+
+  <!-- Page: Soinnut -->
+  <div class="page" id="page-chords">
+    <div class="ex-header">
+      <div class="ex-title">Soinnut</div>
+      <div class="ex-subtitle">Kaikki perussoinnut · Kitara &amp; Piano</div>
+    </div>
+
+    <!-- Chord type selector -->
+    <div class="chord-type-tabs" id="chord-type-tabs">
+      <button class="chord-type-btn active" data-type="maj">Dur · Major</button>
+      <button class="chord-type-btn" data-type="min">Molli · Minor</button>
+      <button class="chord-type-btn" data-type="7">Dominantti · Dom 7</button>
+      <button class="chord-type-btn" data-type="maj7">Major 7</button>
+      <button class="chord-type-btn" data-type="m7">Minor 7</button>
+      <button class="chord-type-btn" data-type="dim7">Dim 7</button>
+      <button class="chord-type-btn" data-type="aug">Aug</button>
+      <button class="chord-type-btn" data-type="sus2">Sus2</button>
+      <button class="chord-type-btn" data-type="sus4">Sus4</button>
+    </div>
+
+    <div class="chord-grid" id="chord-grid"></div>
+  </div><!-- /page-chords -->
+
+
 
 </div><!-- /app -->
 
@@ -1497,7 +2001,872 @@ document.getElementById('btn-clear').addEventListener('click', () => {
   });
 });
 
-/* ── 11. INIT ─────────────────────────────────────────────────────────────── */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   EXERCISES PAGE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── EX-1. 3NPS OFFSET PATTERNS ──────────────────────────────────────────── */
+/*
+ * 3-notes-per-string offset patterns relative to root fret on str0.
+ * Derived from scale intervals and standard tuning string gaps.
+ * Format: [[str0_offsets], [str1_offsets], ..., [str5_offsets]]
+ * Each sub-array has 3 ascending fret offsets.
+ * Pattern index 1..5 = starting from box 1..5 root position.
+ */
+const NPS3 = {
+  minor_penta: {
+    // Scale: [0,3,5,7,10]  String offsets above str0: [0,5,10,15,19,24]
+    // b5 tritone is excluded; pure pentatonic only
+    1: [[0,3,5],[2,5,7],[2,5,7],[2,4,7],[3,5,8],[5,7,10]],
+    2: [[3,5,7],[5,7,10],[5,7,9],[4,7,9],[5,8,10],[5,7,10]],
+    3: [[5,7,10],[7,10,12],[7,9,12],[7,9,12],[8,10,13],[10,12,15]],
+    4: [[7,10,12],[10,12,15],[9,12,14],[9,12,14],[10,13,15],[12,15,17]],
+    5: [[10,12,15],[12,15,17],[12,14,17],[12,14,17],[13,15,17],[15,17,19]],
+  },
+  major_penta: {
+    // Scale: [0,2,4,7,9]  String offsets above str0: [0,5,10,15,19,24]
+    1: [[0,2,4],[0,2,5],[0,2,5],[1,4,6],[2,4,7],[0,2,4]],  // needs root anchor
+    2: [[2,4,7],[2,5,7],[2,5,7],[1,4,6],[2,4,7],[2,4,7]],
+    3: [[4,7,9],[5,7,9],[5,7,9],[4,6,9],[4,7,9],[4,7,9]],
+    4: [[7,9,12],[7,9,12],[7,9,12],[6,9,11],[7,9,12],[7,9,12]],
+    5: [[9,12,14],[9,12,14],[9,12,14],[9,11,14],[9,12,14],[9,12,14]],
+  },
+  blues: {
+    // Blues = minor penta + b5 (semitone 6). Same 3NPS as minor but with b5 as passing note.
+    1: [[0,3,5],[2,5,7],[2,5,7],[2,4,7],[3,5,8],[5,7,10]],
+    2: [[3,5,7],[5,7,10],[5,7,9],[4,7,9],[5,8,10],[5,7,10]],
+    3: [[5,7,10],[7,10,12],[7,9,12],[7,9,12],[8,10,13],[10,12,15]],
+    4: [[7,10,12],[10,12,15],[9,12,14],[9,12,14],[10,13,15],[12,15,17]],
+    5: [[10,12,15],[12,15,17],[12,14,17],[12,14,17],[13,15,17],[15,17,19]],
+  },
+};
+
+/* ── EX-2. HELPER: find first root fret on str0 in range [0, maxFret] ─────── */
+function findRootFret(key, minFret=0, maxFret=15) {
+  const rootNi = noteIndex(key);
+  for (let f = minFret; f <= maxFret; f++) {
+    if (noteAtFret(0, f) === rootNi) return f;
+  }
+  return 0;
+}
+
+/* ── EX-3. COMPUTE BOX TAB DATA ───────────────────────────────────────────── */
+/*
+ * Returns array of 6 sub-arrays (str0..str5), each with ascending fret numbers
+ * for that box shape. String 0 = low E, string 5 = high e.
+ * For tab display, strings are reversed (high e on top).
+ */
+function computeBoxTab(key, mode, boxNum) {
+  const shapeDef = PENTA_SHAPES[mode]?.[boxNum];
+  if (!shapeDef) return null;
+
+  const rootNi = noteIndex(key);
+  // Find appropriate root fret: try to land box in frets 3-17
+  let rootFret = -1;
+  for (let f = 0; f <= 16; f++) {
+    if (noteAtFret(0, f) !== rootNi) continue;
+    const minOff = Math.min(...shapeDef.map(([, fo]) => fo));
+    if (f + minOff >= 0) { rootFret = f; break; }
+  }
+  if (rootFret < 0) return null;
+
+  const strings = Array.from({length: 6}, () => []);
+  shapeDef.forEach(([si, fo]) => {
+    const fret = rootFret + fo;
+    if (fret >= 0 && fret <= 24) strings[si].push(fret);
+  });
+  strings.forEach(s => s.sort((a, b) => a - b));
+  return strings;
+}
+
+/* ── EX-4. COMPUTE 3NPS TAB DATA ──────────────────────────────────────────── */
+function compute3NPSTab(key, mode, patternNum) {
+  const pattern = NPS3[mode]?.[patternNum];
+  if (!pattern) return null;
+  const rootNi = noteIndex(key);
+  // Find root fret for box 1 (same anchor as computeBoxTab)
+  let rootFret = -1;
+  const shapeDef1 = PENTA_SHAPES[mode]?.[1];
+  if (shapeDef1) {
+    for (let f = 0; f <= 16; f++) {
+      if (noteAtFret(0, f) !== rootNi) continue;
+      const minOff = Math.min(...shapeDef1.map(([, fo]) => fo));
+      if (f + minOff >= 0) { rootFret = f; break; }
+    }
+  }
+  if (rootFret < 0) rootFret = findRootFret(key);
+
+  // Apply offsets
+  return pattern.map(offsets => offsets.map(o => rootFret + o));
+}
+
+/* ── EX-5. TAB SVG RENDERER ──────────────────────────────────────────────── */
+/*
+ * stringData: array[6] – str0=low E … str5=high e, each with ascending fret numbers.
+ * Renders proper guitar tab: numbers ON continuous string lines, left→right sequence.
+ * ascending=false: shows full ascending + descending run.
+ */
+function renderTabSVG(stringData, { ascending = false } = {}) {
+  const ns = 'http://www.w3.org/2000/svg';
+
+  // ── Layout constants
+  const SG       = 14;    // gap between string lines (px)
+  const TOPPAD   = 14;    // space above top string
+  const BOTPAD   = 22;    // space below bottom string (for labels)
+  const TAB_W    = 30;    // TAB marker column width
+  const NOTE_W   = 26;    // horizontal space per note
+  const PAD_R    = 16;
+
+  const totalStrings = 6;
+  const totalH = TOPPAD + (totalStrings - 1) * SG + BOTPAD;
+
+  // String label order: high e on top → low E on bottom
+  const STRING_LABELS = ['e','B','G','D','A','E'];
+
+  // ── Build event sequence (each event = {stringRow, fret, isDesc})
+  // stringRow 0 = top (high e = stringData[5])
+  // stringRow 5 = bottom (low E = stringData[0])
+
+  function buildSequence(desc) {
+    const events = [];
+    if (!desc) {
+      // Ascending: low E (row 5) → high e (row 0)
+      for (let raw = 0; raw < 6; raw++) {
+        const row = 5 - raw; // row in display (0=top)
+        (stringData[raw] || []).forEach(fret => events.push({ row, fret, isDesc: false }));
+      }
+    } else {
+      // Descending: high e (row 0) → low E (row 5)
+      for (let raw = 5; raw >= 0; raw--) {
+        const row = 5 - raw;
+        const frets = [...(stringData[raw] || [])].reverse();
+        frets.forEach(fret => events.push({ row, fret, isDesc: true }));
+      }
+    }
+    return events;
+  }
+
+  const ascEvents  = buildSequence(false);
+  const descEvents = ascending ? [] : buildSequence(true);
+
+  // For full run: ascending first, then descending (skip first note of desc = last of asc)
+  const allEvents = ascending
+    ? ascEvents
+    : [...ascEvents, ...descEvents.slice(1)];
+
+  // ── Measure bars: split into groups of ~8 notes per measure
+  const NOTES_PER_MEASURE = 8;
+
+  // ── Calculate total width
+  const notesWidth = allEvents.length * NOTE_W;
+  const totalW = TAB_W + notesWidth + PAD_R;
+
+  // ── Create SVG
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('viewBox', `0 0 ${totalW} ${totalH}`);
+  svg.setAttribute('width', totalW);
+  svg.setAttribute('height', totalH);
+  svg.style.display = 'block';
+  svg.style.maxWidth = '100%';
+
+  const mk = (tag, attrs, parent = svg) => {
+    const e = document.createElementNS(ns, tag);
+    Object.entries(attrs).forEach(([k, v]) => e.setAttribute(k, v));
+    parent.appendChild(e);
+    return e;
+  };
+
+  const strY = row => TOPPAD + row * SG;
+
+  // ── Background
+  mk('rect', { x: 0, y: 0, width: totalW, height: totalH, fill: '#0f0e0c', rx: 5 });
+
+  // ── TAB marker (left column)
+  'TAB'.split('').forEach((ch, i) => {
+    mk('text', {
+      x: TAB_W / 2, y: TOPPAD + SG * (i + 1) - 2,
+      'text-anchor': 'middle', fill: '#c8b89a',
+      'font-size': 13, 'font-family': 'Georgia, serif', 'font-weight': 'bold'
+    }).textContent = ch;
+  });
+
+  // ── Vertical bar after TAB marker
+  mk('line', {
+    x1: TAB_W, y1: TOPPAD,
+    x2: TAB_W, y2: TOPPAD + (totalStrings - 1) * SG,
+    stroke: '#6a5a40', 'stroke-width': 1.5
+  });
+
+  // ── Continuous string lines (extend full width)
+  for (let row = 0; row < totalStrings; row++) {
+    const y = strY(row);
+    mk('line', {
+      x1: TAB_W, y1: y, x2: totalW - PAD_R, y2: y,
+      stroke: '#3a3028', 'stroke-width': 0.85
+    });
+
+    // String label at far right
+    mk('text', {
+      x: totalW - PAD_R + 6, y: y + 4,
+      'text-anchor': 'start', fill: '#4a3f30',
+      'font-size': 8, 'font-family': 'DM Mono, monospace'
+    }).textContent = STRING_LABELS[row];
+  }
+
+  // ── Find where ascending ends (for direction label)
+  const ascEndIdx = ascending ? allEvents.length : ascEvents.length;
+
+  // ── Measure bars every N notes
+  for (let i = NOTES_PER_MEASURE; i < allEvents.length; i += NOTES_PER_MEASURE) {
+    const x = TAB_W + i * NOTE_W;
+    // Shadow for depth
+    mk('line', { x1: x+1, y1: TOPPAD - 2, x2: x+1, y2: TOPPAD + (totalStrings-1)*SG + 2,
+      stroke: '#0a0908', 'stroke-width': 2 });
+    // Main bar
+    mk('line', { x1: x, y1: TOPPAD - 2, x2: x, y2: TOPPAD + (totalStrings-1)*SG + 2,
+      stroke: '#8a7a5c', 'stroke-width': 1.8 });
+  }
+
+  // ── Direction labels below tab (if showing both directions)
+  if (!ascending) {
+    const ascMidX = TAB_W + (ascEndIdx / 2) * NOTE_W;
+    const descMidX = TAB_W + (ascEndIdx + (allEvents.length - ascEndIdx) / 2) * NOTE_W;
+    const lblY = totalH - 5;
+
+    mk('text', { x: ascMidX, y: lblY, 'text-anchor': 'middle',
+      fill: '#5a5040', 'font-size': 8, 'font-family': 'DM Mono, monospace'
+    }).textContent = '↑  nouseva';
+
+    if (!ascending && descEvents.length > 1) {
+      mk('text', { x: descMidX, y: lblY, 'text-anchor': 'middle',
+        fill: '#5a5040', 'font-size': 8, 'font-family': 'DM Mono, monospace'
+      }).textContent = '↓  laskeva';
+
+      // Dashed divider at ascend/descend boundary
+      const divX = TAB_W + ascEndIdx * NOTE_W;
+      mk('line', {
+        x1: divX, y1: TOPPAD - 6,
+        x2: divX, y2: TOPPAD + (totalStrings - 1) * SG + 4,
+        stroke: '#3a3028', 'stroke-width': 0.8, 'stroke-dasharray': '3,3'
+      });
+    }
+  }
+
+  // ── Draw note numbers ON string lines
+  allEvents.forEach(({ row, fret, isDesc }, ni) => {
+    const x = TAB_W + ni * NOTE_W + NOTE_W / 2;
+    const y = strY(row);
+    const str = String(fret);
+    const numW = str.length > 1 ? 14 : 10;
+
+    // Punch through the line (background rect)
+    mk('rect', {
+      x: x - numW / 2, y: y - 7,
+      width: numW, height: 14,
+      fill: '#0f0e0c'
+    });
+
+    // The number
+    mk('text', {
+      x, y: y + 4.5,
+      'text-anchor': 'middle',
+      fill: '#d4c8a8',
+      'font-size': 11,
+      'font-family': 'DM Mono, monospace',
+      'font-weight': '600',
+      'letter-spacing': '-.02em'
+    }).textContent = str;
+  });
+
+  return svg;
+}
+
+/* ── EX-6. MINI FRETBOARD FOR BOX CARD ───────────────────────────────────── */
+function renderMiniFretboard(key, mode, boxNum, tabData) {
+  if (!tabData) return null;
+  const { root, noteSet, intervalMap } = (() => {
+    const r = noteIndex(key);
+    const pattern = SCALES[mode] || SCALES.major;
+    const ns2 = new Set();
+    const im = {};
+    pattern.forEach(o => { ns2.add((r+o)%12); im[(r+o)%12] = INTERVAL_NAMES[o]; });
+    return { root: r, noteSet: ns2, intervalMap: im };
+  })();
+
+  const allFrets = tabData.flat().filter(f => f >= 0);
+  if (!allFrets.length) return null;
+  const minFret = Math.max(0, Math.min(...allFrets) - 1);
+  const maxFret = Math.max(...allFrets) + 1;
+  const nFrets = maxFret - minFret;
+
+  const FW = 34, SG = 26, NW = 22, PAD = 10;
+  const totalW = nFrets * FW + 2 * PAD;
+  const totalH = 5 * SG + 2 * PAD;
+  const ns3 = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns3, 'svg');
+  svg.setAttribute('viewBox', `0 0 ${totalW} ${totalH}`);
+  svg.setAttribute('width', totalW);
+  svg.setAttribute('height', totalH);
+  svg.style.display = 'block';
+
+  const mk = (tag, attrs, parent=svg) => {
+    const e = document.createElementNS(ns3, tag);
+    Object.entries(attrs).forEach(([k,v]) => e.setAttribute(k,v));
+    parent.appendChild(e);
+    return e;
+  };
+
+  mk('rect', { x:0, y:0, width:totalW, height:totalH, fill:'#131210', rx:4 });
+
+  // Fret lines
+  for (let fi = 0; fi <= nFrets; fi++) {
+    const x = PAD + fi * FW;
+    mk('line', { x1:x, y1:PAD, x2:x, y2:totalH-PAD,
+      stroke: fi === 0 ? '#888' : '#3a3028', 'stroke-width': fi===0?2:0.8 });
+    if (fi > 0 && fi <= nFrets) {
+      mk('text', { x: PAD + (fi-0.5)*FW, y: totalH - 1,
+        'text-anchor':'middle', fill:'#3a3028',
+        'font-size':7, 'font-family':'DM Mono, monospace'
+      }).textContent = minFret + fi;
+    }
+  }
+  // String lines
+  const TUNING = TUNINGS[state.tuning] || TUNINGS['standard'];
+  for (let si = 0; si < 6; si++) {
+    const y = PAD + si * SG;
+    mk('line', { x1:PAD, y1:y, x2:totalW-PAD, y2:y,
+      stroke:'#c8b89a', 'stroke-width': 0.5 + si*0.25, opacity:'0.5' });
+  }
+
+  // Note dots
+  tabData.forEach((frets, si) => {
+    frets.forEach(f => {
+      if (f < minFret || f > maxFret) return;
+      const cx = PAD + (f - minFret - 0.5) * FW;
+      const cy = PAD + si * SG;
+      const ni = noteAtFret(si, f);
+      const isRoot = ni === root;
+      const inScale = noteSet.has(ni);
+      mk('circle', { cx, cy, r: NW/2,
+        fill: isRoot ? 'var(--accent)' : inScale ? 'var(--scale-note)' : '#333',
+        stroke: isRoot ? '#f0a060' : '#7ac8e8', 'stroke-width': 1 });
+      mk('text', { x: cx, y: cy+3.5, 'text-anchor':'middle',
+        fill:'#fff', 'font-size':7, 'font-family':'DM Mono, monospace', 'font-weight':'600',
+        'pointer-events':'none'
+      }).textContent = intervalMap[ni] || CHROMATIC[ni];
+    });
+  });
+
+  return svg;
+}
+
+/* ── EX-7. RENDER EXERCISES PAGE ─────────────────────────────────────────── */
+function renderExercisesPage() {
+  const key   = document.getElementById('ex-key').value;
+  const mode  = document.getElementById('ex-scale').value;
+  const modeName = SCALE_LABELS[mode] || mode;
+
+  // ── Box shapes ──────────────────────────────────────────────────────────
+  if (_exView === 'box') {
+    const grid = document.getElementById('box-grid');
+    grid.innerHTML = '';
+    for (let boxNum = 1; boxNum <= 5; boxNum++) {
+      const tabData = computeBoxTab(key, mode, boxNum);
+      if (!tabData) continue;
+      const card = document.createElement('div');
+      card.className = 'box-card';
+      const hdr = document.createElement('div');
+      hdr.className = 'box-card-header';
+      hdr.innerHTML = `<span class="box-card-title">Box ${boxNum}</span><span class="box-card-desc">${key} ${modeName}</span>`;
+      card.appendChild(hdr);
+      const body = document.createElement('div');
+      body.className = 'box-card-body';
+      const mini = renderMiniFretboard(key, mode, boxNum, tabData);
+      if (mini) { const w = document.createElement('div'); w.className = 'box-fret-mini'; w.appendChild(mini); body.appendChild(w); }
+      const tabLbl = document.createElement('div');
+      tabLbl.className = 'tab-label';
+      tabLbl.textContent = 'Tabulatuuri · Nouseva ↑  &  Laskeva ↓';
+      body.appendChild(tabLbl);
+      const tabWrap = document.createElement('div');
+      tabWrap.style.overflowX = 'auto';
+      tabWrap.appendChild(renderTabSVG(tabData, { ascending: false }));
+      body.appendChild(tabWrap);
+      card.appendChild(body);
+      grid.appendChild(card);
+    }
+  }
+
+  // ── Extended 3NPS ───────────────────────────────────────────────────────
+  if (_exView === '3nps') {
+    const extGrid = document.getElementById('extended-grid');
+    extGrid.innerHTML = '';
+    const patterns = NPS3[mode];
+    if (!patterns) return;
+    const patternDesc = [
+      'Aloitus sävellajin pohjasävelestä','Aloitus b3-sävelestä','Aloitus 4-sävelestä',
+      'Aloitus 5-sävelestä','Aloitus b7-sävelestä'];
+    const majorDesc = [
+      'Aloitus sävellajin pohjasävelestä','Aloitus 2-sävelestä','Aloitus 3-sävelestä',
+      'Aloitus 5-sävelestä','Aloitus 6-sävelestä'];
+    const descs = mode === 'major_penta' ? majorDesc : patternDesc;
+    for (let p = 1; p <= 5; p++) {
+      const tabData = compute3NPSTab(key, mode, p);
+      if (!tabData) continue;
+      const card = document.createElement('div');
+      card.className = 'ext-card';
+      const hdr = document.createElement('div');
+      hdr.className = 'ext-card-header';
+      hdr.innerHTML = `<span class="ext-card-title">3NPS Pattern ${p}</span><span class="ext-card-desc">${descs[p-1] || ''} · ${key} ${modeName}</span>`;
+      card.appendChild(hdr);
+      const body = document.createElement('div');
+      body.className = 'ext-card-body';
+      const tabLbl = document.createElement('div');
+      tabLbl.className = 'tab-label';
+      tabLbl.style.marginBottom = '8px';
+      tabLbl.textContent = '3 ääntä per kieli · Nouseva ↑  &  Laskeva ↓ juoksu';
+      body.appendChild(tabLbl);
+      body.appendChild(renderTabSVG(tabData, { ascending: false }));
+      card.appendChild(body);
+      extGrid.appendChild(card);
+    }
+  }
+
+  // ── Songs ───────────────────────────────────────────────────────────────
+  fetchSongSuggestions(key, mode);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CHORDS PAGE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── CH-1. CHORD FORMULAS (semitone intervals from root) ──────────────────── */
+const CHORD_INTERVALS = {
+  maj:  [0, 4, 7],
+  min:  [0, 3, 7],
+  '7':  [0, 4, 7, 10],
+  maj7: [0, 4, 7, 11],
+  m7:   [0, 3, 7, 10],
+  dim7: [0, 3, 6, 9],
+  aug:  [0, 4, 8],
+  sus2: [0, 2, 7],
+  sus4: [0, 5, 7],
+};
+
+const CHORD_LABELS = {
+  maj:'dur', min:'molli', '7':'dom7', maj7:'maj7',
+  m7:'m7', dim7:'dim7', aug:'aug', sus2:'sus2', sus4:'sus4'
+};
+
+/* ── CH-2. CHORD VOICING TEMPLATES ──────────────────────────────────────────
+ * Fret offsets from root position. -99 = mute the string.
+ * E_SHAPES: root on string 0 (low E).  A_SHAPES: root on string 1 (A).
+ * When applied: finalFret[s] = rootFret + offset[s]  (or -1 if offset=-99)
+ */
+const E_SHAPES = {
+  maj:  [  0,  2,  2,  1,  0,  0],
+  min:  [  0,  2,  2,  0,  0,  0],
+  '7':  [  0,  2,  0,  1,  0,  0],
+  maj7: [  0,  2,  1,  1,  0,  0],
+  m7:   [  0,  2,  0,  0,  0,  0],
+  dim7: [  0,  1,  2,  0,  2,-99],
+  aug:  [  0,  3,  2,  1,  1,-99],
+  sus2: [  0,  2,  4,  4,  0,  0],
+  sus4: [  0,  2,  2,  2,  0,  0],
+};
+const A_SHAPES = {
+  maj:  [-99,  0,  2,  2,  2,  0],
+  min:  [-99,  0,  2,  2,  1,  0],
+  '7':  [-99,  0,  2,  0,  2,  0],
+  maj7: [-99,  0,  2,  1,  2,  0],
+  m7:   [-99,  0,  2,  0,  1,  0],
+  dim7: [-99,  0,  1,  2,  1,  2],
+  aug:  [-99,  0,  3,  2,  2,  1],
+  sus2: [-99,  0,  2,  2,  0,  0],
+  sus4: [-99,  0,  2,  2,  3,  0],
+};
+
+/* ── CH-3. CHORD FRET CALCULATOR ─────────────────────────────────────────── */
+/*
+ * note index: C=0, C#=1, D=2, D#=3, E=4, F=5, F#=6, G=7, G#=8, A=9, A#=10, B=11
+ * Low E string note index = 4.  A string note index = 9.
+ */
+function getChordFrets(key, type) {
+  const rootNi = noteIndex(key);           // 0–11
+  const eFret  = (rootNi - 4 + 12) % 12;  // root fret on low E (0–11)
+  const aFret  = (rootNi - 9 + 12) % 12;  // root fret on A string (0–11)
+
+  const tmpl   = eFret <= 7 ? E_SHAPES[type] : A_SHAPES[type];
+  const rFret  = eFret <= 7 ? eFret : aFret;
+
+  return (tmpl || E_SHAPES.maj).map(off =>
+    off === -99 ? -1 : rFret + off
+  );
+}
+
+/* ── CH-4. CHORD DIAGRAM SVG ─────────────────────────────────────────────── */
+/*
+ * frets: [lowE, A, D, G, B, highE]  — -1=muted, ≥0=fret number
+ */
+function renderChordDiagram(frets) {
+  const ns   = 'http://www.w3.org/2000/svg';
+  const STRG = 6, SG = 20, NUTW = 3;
+  const FG = 22, NFRETS = 4, TOPPAD = 28, BOTPAD = 14, SIDEL = 14, SIDER = 24;
+  const W = (STRG - 1) * SG + SIDEL + SIDER;
+  const H = NFRETS * FG + TOPPAD + BOTPAD;
+
+  const played = frets.filter(f => f >= 0);
+  const minFret = played.length ? Math.min(...played.filter(f => f > 0)) : 1;
+  const baseFret = minFret < 2 ? 1 : minFret;  // lowest fret shown
+  const showNut  = baseFret === 1;
+
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('width', W);
+  svg.setAttribute('height', H);
+  svg.style.display = 'block';
+
+  const mk = (tag, attrs, parent = svg) => {
+    const e = document.createElementNS(ns, tag);
+    Object.entries(attrs).forEach(([k, v]) => e.setAttribute(k, v));
+    parent.appendChild(e);
+    return e;
+  };
+
+  mk('rect', { x:0, y:0, width:W, height:H, fill:'#111008', rx:4 });
+
+  // Fret lines
+  for (let fi = 0; fi <= NFRETS; fi++) {
+    const y = TOPPAD + fi * FG;
+    mk('line', {
+      x1: SIDEL, y1: y, x2: SIDEL + (STRG-1)*SG, y2: y,
+      stroke: fi === 0 && showNut ? '#c8b89a' : '#2e2820',
+      'stroke-width': fi === 0 && showNut ? NUTW : 0.8
+    });
+  }
+
+  // String lines (low E on left, high e on right)
+  for (let si = 0; si < STRG; si++) {
+    const x = SIDEL + si * SG;
+    mk('line', { x1:x, y1:TOPPAD, x2:x, y2:TOPPAD + NFRETS*FG,
+      stroke:'#3a3028', 'stroke-width': 0.7 });
+  }
+
+  // Barre detection: find if lowest non-open fret appears on 3+ strings
+  const minPlayed = played.filter(f => f > 0);
+  const barreFret = baseFret;
+  const barreStrings = frets.map((f, i) => ({ f, i })).filter(({ f }) => f === barreFret);
+  if (barreStrings.length >= 3 && barreFret > 0) {
+    const x1 = SIDEL + barreStrings[0].i * SG;
+    const x2 = SIDEL + barreStrings[barreStrings.length-1].i * SG;
+    const y  = TOPPAD + (barreFret - baseFret + 0.5) * FG;
+    mk('rect', { x: x1 - 4, y: y - 7, width: x2 - x1 + 8, height: 14,
+      rx: 7, fill: '#c8b89a', opacity: '0.85' });
+  }
+
+  // X / O markers above nut
+  const STRING_NAMES_BOTTOM = ['E','A','D','G','B','e'];
+  frets.forEach((f, si) => {
+    const x = SIDEL + si * SG;
+    if (f === -1) {
+      mk('text', { x, y: TOPPAD - 8, 'text-anchor':'middle',
+        fill:'#8a4040', 'font-size':11, 'font-family':'DM Mono, monospace', 'font-weight':'700'
+      }).textContent = '×';
+    } else if (f === 0) {
+      mk('circle', { cx:x, cy:TOPPAD - 9, r:5,
+        fill:'none', stroke:'#8a7a60', 'stroke-width':1.3 });
+    }
+  });
+
+  // Note dots
+  frets.forEach((f, si) => {
+    if (f <= 0) return;
+    const relFret = f - baseFret;
+    if (relFret < 0 || relFret >= NFRETS) return;
+    const x = SIDEL + si * SG;
+    const y = TOPPAD + (relFret + 0.5) * FG;
+    // Skip if already covered by barre visual
+    const isBarreNote = barreStrings.length >= 3 && f === barreFret;
+    if (!isBarreNote) {
+      mk('circle', { cx:x, cy:y, r:7, fill:'#c8b89a' });
+    }
+  });
+
+  // Base fret number (if not starting at 1)
+  if (baseFret > 1) {
+    mk('text', { x: W - SIDER + 6, y: TOPPAD + FG * 0.65,
+      'text-anchor':'start', fill:'#7a7060',
+      'font-size':9, 'font-family':'DM Mono, monospace'
+    }).textContent = baseFret + 'fr';
+  }
+
+  // String name labels at bottom
+  for (let si = 0; si < STRG; si++) {
+    if (frets[si] === -1) continue;
+    const x = SIDEL + si * SG;
+    mk('text', { x, y: H - 2, 'text-anchor':'middle',
+      fill:'#3a3028', 'font-size':7, 'font-family':'DM Mono, monospace'
+    }).textContent = STRING_NAMES_BOTTOM[si];
+  }
+
+  return svg;
+}
+
+/* ── CH-5. MINI PIANO FOR CHORD ──────────────────────────────────────────── */
+function renderChordPiano(rootNi, intervals) {
+  const chordNis = new Set(intervals.map(i => (rootNi + i) % 12));
+  const ns = 'http://www.w3.org/2000/svg';
+  const WW = 17, WH = 48, BW = 11, BH = 30;
+  const W  = 7 * WW + 2, H = WH + 2;
+  const KEY_MAP = [
+    {black:false, wi:0},{black:true, xf:0.63},
+    {black:false, wi:1},{black:true, xf:1.65},
+    {black:false, wi:2},{black:false,wi:3},
+    {black:true, xf:3.63},{black:false,wi:4},
+    {black:true, xf:4.65},{black:false,wi:5},
+    {black:true, xf:5.65},{black:false,wi:6},
+  ];
+
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('width', W);
+  svg.setAttribute('height', H);
+  svg.style.display = 'block';
+
+  const mk = (tag, attrs, p = svg) => {
+    const e = document.createElementNS(ns, tag);
+    Object.entries(attrs).forEach(([k, v]) => e.setAttribute(k, v));
+    p.appendChild(e);
+    return e;
+  };
+
+  mk('rect', {x:0,y:0,width:W,height:H,fill:'#0d0d0d',rx:3});
+
+  // White keys
+  for (let ni = 0; ni < 12; ni++) {
+    const km = KEY_MAP[ni];
+    if (km.black) continue;
+    const x = km.wi * WW + 1;
+    const isRoot = ni === rootNi;
+    const inChord = chordNis.has(ni);
+    let fill, stroke;
+    if (isRoot)       { fill='var(--accent)';          stroke='#f0a060'; }
+    else if (inChord) { fill='rgba(74,158,202,.35)';   stroke='var(--scale-note)'; }
+    else              { fill='#bfb8ac';                stroke='#888'; }
+    mk('rect', {x, y:1, width:WW-2, height:WH-1, fill, stroke, 'stroke-width':0.7, rx:2});
+    if (inChord || isRoot) {
+      mk('rect', {x, y:1, width:WW-2, height:4, rx:2, 'pointer-events':'none',
+        fill: isRoot?'rgba(255,200,100,.6)':'rgba(74,158,202,.6)'});
+    }
+  }
+
+  // Black keys
+  for (let ni = 0; ni < 12; ni++) {
+    const km = KEY_MAP[ni];
+    if (!km.black) continue;
+    const x = km.xf * WW - BW / 2;
+    const isRoot = ni === rootNi;
+    const inChord = chordNis.has(ni);
+    let fill, stroke;
+    if (isRoot)       { fill='var(--accent)';     stroke='#f0a060'; }
+    else if (inChord) { fill='var(--scale-note)'; stroke='#7ac8e8'; }
+    else              { fill='#1c1c1c';           stroke='#2e2e2e'; }
+    mk('rect', {x, y:1, width:BW, height:BH, fill, stroke, 'stroke-width':0.7, rx:1.5});
+  }
+
+  return svg;
+}
+
+/* ── CH-6. RENDER CHORDS PAGE ─────────────────────────────────────────────── */
+function renderChordsPage(type) {
+  const grid   = document.getElementById('chord-grid');
+  const typeLbl = CHORD_LABELS[type] || type;
+  grid.innerHTML = '';
+
+  const KEYS = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+  const KEY_DISPLAY = {'C#':'C# / D♭','D#':'D# / E♭','F#':'F# / G♭','G#':'G# / A♭','A#':'A# / B♭'};
+  const intervals = CHORD_INTERVALS[type] || [0,4,7];
+
+  KEYS.forEach(key => {
+    const rootNi = noteIndex(key);
+    const frets  = getChordFrets(key, type);
+
+    const card = document.createElement('div');
+    card.className = 'chord-card';
+
+    // Name row
+    const nameDiv = document.createElement('div');
+    nameDiv.className = 'chord-card-name';
+    const keyDisp = KEY_DISPLAY[key] || key;
+    nameDiv.innerHTML = `${keyDisp}<span>${typeLbl}</span>`;
+    card.appendChild(nameDiv);
+
+    const body = document.createElement('div');
+    body.className = 'chord-card-body';
+
+    // Guitar chord diagram
+    const diagramWrap = document.createElement('div');
+    diagramWrap.className = 'chord-diagram-wrap';
+    diagramWrap.appendChild(renderChordDiagram(frets));
+    body.appendChild(diagramWrap);
+
+    // Mini piano
+    const pianoWrap = document.createElement('div');
+    pianoWrap.className = 'chord-piano-wrap';
+    pianoWrap.appendChild(renderChordPiano(rootNi, intervals));
+    body.appendChild(pianoWrap);
+
+    // Note pips
+    const pipsRow = document.createElement('div');
+    pipsRow.className = 'chord-notes-row';
+    intervals.forEach(intv => {
+      const ni  = (rootNi + intv) % 12;
+      const pip = document.createElement('span');
+      pip.className = 'chord-note-pip' + (intv === 0 ? ' is-root' : '');
+      pip.textContent = CHROMATIC[ni];
+      pipsRow.appendChild(pip);
+    });
+    body.appendChild(pipsRow);
+
+    card.appendChild(body);
+    grid.appendChild(card);
+  });
+}
+
+/* ── CH-7. CHORD PAGE EVENT WIRING ───────────────────────────────────────── */
+document.querySelectorAll('.chord-type-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.chord-type-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderChordsPage(btn.dataset.type);
+  });
+});
+
+// Extend nav wiring to also trigger chord page render
+const _origNavHandler = document.querySelectorAll('.nav-tab');
+_origNavHandler.forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (btn.dataset.page === 'chords') {
+      const activeType = document.querySelector('.chord-type-btn.active');
+      renderChordsPage(activeType ? activeType.dataset.type : 'maj');
+    }
+  });
+});
+
+
+/* ── EX-8. VIEW TOGGLE WIRING ────────────────────────────────────────────── */
+let _exView = 'box'; // 'box' | '3nps'
+
+document.querySelectorAll('.ex-view-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    _exView = btn.dataset.view;
+    document.querySelectorAll('.ex-view-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('ex-boxes-section').style.display   = _exView === 'box'  ? '' : 'none';
+    document.getElementById('ex-extended-section').style.display = _exView === '3nps' ? '' : 'none';
+    renderExercisesPage();
+  });
+});
+
+/* ── EX-9. SONG SUGGESTIONS ──────────────────────────────────────────────── */
+let _lastSongKey = null, _lastSongScale = null;
+
+async function fetchSongSuggestions(key, scale) {
+  const container = document.getElementById('songs-container');
+  const subtitle  = document.getElementById('songs-subtitle');
+  if (_lastSongKey === key && _lastSongScale === scale) return; // no change
+  _lastSongKey = key; _lastSongScale = scale;
+
+  const scaleNames = { minor_penta: 'molli', major_penta: 'duuri', blues: 'blues' };
+  subtitle.textContent = `${key} ${scaleNames[scale] || scale} · Rock · Heavy · Metal`;
+  container.innerHTML = '<div class="songs-loading"><div class="spinner"></div>Haetaan kappaleita…</div>';
+
+  const scaleDesc = scale === 'major_penta' ? 'major / major pentatonic'
+    : scale === 'blues' ? 'minor blues'
+    : 'minor / minor pentatonic';
+
+  const prompt = `List exactly 10 famous rock, heavy metal, or hard rock guitar songs that are primarily in the key of ${key} ${scaleDesc}. These should be real, well-known songs that guitar players commonly learn.
+
+Return ONLY a JSON array with no other text, like this:
+[{"title":"Song Name","artist":"Artist Name","key":"${key}","genre":"Heavy Metal"}]
+
+Requirements:
+- Exactly 10 songs
+- Must be genuine songs in key of ${key} ${scaleDesc}
+- Focus on guitar-driven rock, metal, hard rock
+- Include variety of artists
+- No duplicates`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await res.json();
+    const text = (data.content || []).map(b => b.text || '').join('');
+    const jsonMatch = text.match(/\[[\s\S]*\]/);
+    if (!jsonMatch) throw new Error('No JSON found');
+    const songs = JSON.parse(jsonMatch[0]).slice(0, 10);
+    renderSongCards(songs);
+  } catch(e) {
+    container.innerHTML = `<div class="songs-loading" style="color:#6a4040">Kappaleiden haku epäonnistui.</div>`;
+  }
+}
+
+function renderSongCards(songs) {
+  const container = document.getElementById('songs-container');
+  container.innerHTML = '';
+  const grid = document.createElement('div');
+  grid.className = 'songs-grid';
+
+  songs.forEach((song, i) => {
+    const query = encodeURIComponent(`${song.title} ${song.artist}`);
+    const ugUrl = `https://www.ultimate-guitar.com/search.php?search_type=title&value=${query}`;
+
+    const a = document.createElement('a');
+    a.className = 'song-card';
+    a.href = ugUrl;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.innerHTML = `
+      <span class="song-num">${i + 1}</span>
+      <div class="song-info">
+        <div class="song-title">${song.title}</div>
+        <div class="song-artist">${song.artist}</div>
+      </div>
+      <span class="song-badge">${song.genre || 'Rock'}</span>
+      <span class="song-arrow">→</span>`;
+    grid.appendChild(a);
+  });
+
+  container.appendChild(grid);
+}
+
+
+document.querySelectorAll('.nav-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('page-' + btn.dataset.page).classList.add('active');
+    if (btn.dataset.page === 'exercises') renderExercisesPage();
+  });
+});
+
+document.getElementById('ex-key').addEventListener('change', () => {
+  renderExercisesPage();
+});
+document.getElementById('ex-scale').addEventListener('change', () => {
+  renderExercisesPage();
+});
+
+/* ── 12. INIT ─────────────────────────────────────────────────────────────── */
 render();
 </script>
 </body>
