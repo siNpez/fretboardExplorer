@@ -259,6 +259,144 @@
     min-width: 900px;
   }
 
+
+  /* ─── Instrument Manager ─────────────────────────────────────────────────── */
+  .inst-manager {
+    margin: 28px 0 0;
+    padding: 18px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .inst-manager-label {
+    font-size: .62rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    margin-bottom: 12px;
+  }
+  .inst-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .inst-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: border-color var(--transition), opacity var(--transition);
+  }
+  .inst-row.inst-off { opacity: .45; }
+  .inst-row.inst-off .inst-name { color: var(--text-muted); }
+
+  .inst-drag-handle {
+    color: #3a3028;
+    font-size: 13px;
+    cursor: grab;
+    user-select: none;
+    padding: 0 2px;
+    line-height: 1;
+  }
+  .inst-drag-handle:active { cursor: grabbing; }
+
+  .inst-toggle {
+    width: 36px;
+    height: 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background var(--transition), border-color var(--transition);
+  }
+  .inst-toggle::after {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    top: 2px;
+    left: 2px;
+    transition: transform var(--transition), background var(--transition);
+  }
+  .inst-toggle.on {
+    background: rgba(74,158,202,.2);
+    border-color: var(--scale-note);
+  }
+  .inst-toggle.on::after {
+    transform: translateX(16px);
+    background: var(--scale-note);
+  }
+
+  .inst-icon {
+    font-size: 16px;
+    width: 22px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .inst-name {
+    font-family: var(--font-mono);
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--text);
+    flex: 1;
+    letter-spacing: .04em;
+  }
+  .inst-order-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .inst-order-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 9px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 1px 4px;
+    border-radius: 3px;
+    transition: color var(--transition), background var(--transition);
+  }
+  .inst-order-btn:hover { color: var(--text); background: var(--border); }
+  .inst-order-btn:disabled { opacity: .2; cursor: default; }
+
+  /* ─── Instrument panels ──────────────────────────────────────────────────── */
+  .inst-panel { margin-top: 48px; }
+  .inst-panel-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .inst-panel-title {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    letter-spacing: .06em;
+    color: var(--text);
+  }
+  .inst-panel-subtitle {
+    font-size: .68rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .12em;
+  }
+
+  /* Staff notation */
+  .staff-wrapper { overflow-x: auto; padding-bottom: 8px; }
+  #staff-svg { display: block; }
+
+
   /* ─── Piano ──────────────────────────────────────────────────────────────── */
   .piano-section {
     margin-top: 48px;
@@ -291,6 +429,74 @@
     filter: drop-shadow(0 4px 24px rgba(0,0,0,.55));
   }
   #piano-svg { display: block; }
+
+
+
+  /* ─── (companion toggle removed) */
+  .companion-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .companion-label {
+    font-size: .62rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    margin-right: 4px;
+  }
+  .companion-btn {
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    padding: 5px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    cursor: pointer;
+    background: var(--surface);
+    transition: all var(--transition);
+  }
+  .companion-btn:hover { color: var(--text); border-color: rgba(74,158,202,.4); }
+  .companion-btn.active {
+    background: var(--surface2);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* ─── (ukulele old) */
+  .ukulele-section { margin-top: 48px; }
+  .ukulele-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .ukulele-title {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    letter-spacing: .06em;
+    color: var(--text);
+  }
+  .ukulele-subtitle {
+    font-size: .68rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .12em;
+  }
+  .ukulele-wrapper {
+    overflow-x: auto;
+    overflow-y: visible;
+    padding-bottom: 16px;
+    filter: drop-shadow(0 4px 24px rgba(0,0,0,.55));
+  }
+  #ukulele-svg { display: block; }
 
 
   /* ─── Hover note indicator ───────────────────────────────────────────────── */
@@ -588,6 +794,118 @@
     border-top-color: var(--scale-note);
     border-radius: 50%;
     animation: spin .8s linear infinite;
+  }
+
+
+
+  /* ─── Exercise Modal ──────────────────────────────────────────────────────── */
+  .ex-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.82);
+    backdrop-filter: blur(6px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s;
+  }
+  .ex-modal-backdrop.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .ex-modal {
+    background: #1a1814;
+    border: 1px solid #3a3028;
+    border-radius: 14px;
+    max-width: 96vw;
+    max-height: 92vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transform: translateY(12px) scale(.98);
+    transition: transform .22s;
+    box-shadow: 0 32px 80px rgba(0,0,0,.8);
+  }
+  .ex-modal-backdrop.open .ex-modal {
+    transform: translateY(0) scale(1);
+  }
+  .ex-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px 14px;
+    border-bottom: 1px solid #2e2820;
+    position: sticky;
+    top: 0;
+    background: #1a1814;
+    z-index: 1;
+  }
+  .ex-modal-title {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    letter-spacing: .06em;
+    color: var(--accent);
+  }
+  .ex-modal-subtitle {
+    font-size: .68rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    margin-top: 2px;
+  }
+  .ex-modal-close {
+    background: none;
+    border: 1px solid #3a3028;
+    color: var(--text-muted);
+    font-size: 20px;
+    line-height: 1;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color .15s, color .15s;
+    flex-shrink: 0;
+  }
+  .ex-modal-close:hover { border-color: var(--accent); color: var(--text); }
+  .ex-modal-body { padding: 24px 28px 32px; }
+  .ex-modal-fret {
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
+  }
+  .ex-modal-fret svg { border-radius: 8px; max-width: 100%; height: auto; }
+  .ex-modal-tab-label {
+    font-size: .65rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    margin-bottom: 10px;
+  }
+  .ex-modal-tab { overflow-x: auto; }
+
+  /* ─── Card hover cue ─────────────────────────────────────────────────────── */
+  .box-card { cursor: pointer; }
+  .box-card:hover { border-color: rgba(74,158,202,.6); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.4); transition: all .15s; }
+  .ext-card { cursor: pointer; }
+  .ext-card:hover { border-color: rgba(74,158,202,.5); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,.35); transition: all .15s; }
+  .open-hint {
+    font-size: .6rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    letter-spacing: .08em;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: rgba(255,255,255,.04);
+    float: right;
+    margin-top: 2px;
   }
 
 
@@ -901,14 +1219,19 @@
     </div>
   </div>
 
-  <!-- Piano keyboard -->
-  <div class="piano-section">
-    <div class="piano-header">
-      <span class="piano-title">Piano</span>
-      <span class="piano-subtitle">C2 – B5 · Guitar range</span>
-    </div>
-    <div class="piano-wrapper">
-      <svg id="piano-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+  <!-- Dynamic instrument panels container (SVGs always live in stable home here) -->
+  <div id="inst-panels">
+    <!-- Stable SVG holders — never removed from DOM -->
+    <div id="svg-home-piano"   class="inst-panel" style="display:none"><div class="piano-wrapper"><svg id="piano-svg"></svg></div></div>
+    <div id="svg-home-ukulele" class="inst-panel" style="display:none"><div class="ukulele-wrapper"><svg id="ukulele-svg"></svg></div></div>
+    <div id="svg-home-staff"   class="inst-panel" style="display:none"><div class="staff-wrapper"><svg id="staff-svg"></svg></div></div>
+  </div>
+
+  <!-- Instrument Manager (bottom) -->
+  <div class="inst-manager" style="margin-top:52px">
+    <div class="inst-manager-label">Instrumentit — valitse ja järjestä</div>
+    <div class="inst-list" id="inst-list">
+      <!-- rows injected by JS -->
     </div>
   </div>
 
@@ -981,6 +1304,24 @@
     </div>
 
   </div><!-- /page-exercises -->
+
+  <!-- Exercise detail modal -->
+  <div class="ex-modal-backdrop" id="ex-modal-backdrop">
+    <div class="ex-modal" id="ex-modal">
+      <div class="ex-modal-header">
+        <div>
+          <div class="ex-modal-title" id="ex-modal-title">—</div>
+          <div class="ex-modal-subtitle" id="ex-modal-subtitle">—</div>
+        </div>
+        <button class="ex-modal-close" id="ex-modal-close">✕</button>
+      </div>
+      <div class="ex-modal-body">
+        <div class="ex-modal-fret" id="ex-modal-fret"></div>
+        <div class="ex-modal-tab-label">Tabulatuuri · Nouseva ↑  &amp;  Laskeva ↓</div>
+        <div class="ex-modal-tab" id="ex-modal-tab"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- Page: Soinnut -->
   <div class="page" id="page-chords">
@@ -1685,6 +2026,179 @@ function updateInfoBar() {
   });
 }
 
+
+/* ── 9b. UKULELE RENDERER ────────────────────────────────────────────────── */
+/*
+ * Standard ukulele tuning (re-entrant): G4 C4 E4 A4
+ * MIDI: [67, 60, 64, 69]  (string 0 = G string at top, string 3 = A string)
+ * Display: str0 (G) at top, str3 (A) at bottom — matching physical orientation
+ */
+const UKU_TUNING = [69, 64, 60, 67]; // A E C G  (str0=A high, str3=G re-entrant)
+// Actually physical order top-to-bottom: G C E A
+// str0 = G4=67, str1 = C4=60, str2 = E4=64, str3 = A4=69
+// We display str0 at top (G) → str3 at bottom (A)
+const UKU_STRINGS = [67, 60, 64, 69]; // G C E A  (MIDI, str0=G top)
+const UKU_STRING_NAMES = ['G','C','E','A']; // top to bottom
+const UKU_INLAYS = [3, 5, 7, 10, 12, 15];
+const UKU_NFRETS = 15;
+
+function noteAtUkuFret(strIdx, fret) {
+  return ((UKU_STRINGS[strIdx] + fret) % 12 + 12) % 12;
+}
+
+function renderUkulele() {
+  const svg = document.getElementById('ukulele-svg');
+  if (!svg) return;
+  svg.innerHTML = '';
+
+  const ns = 'http://www.w3.org/2000/svg';
+  const el = (tag, attrs, parent = svg) => {
+    const e = document.createElementNS(ns, tag);
+    Object.entries(attrs).forEach(([k, v]) => e.setAttribute(k, v));
+    parent.appendChild(e);
+    return e;
+  };
+
+  const { root, noteSet, intervalMap } = getScaleData();
+  const nStrings = 4;
+  const nFrets   = UKU_NFRETS;
+
+  // Layout (same proportions as guitar board)
+  const NUT_W  = 44;
+  const FW     = 52;
+  const SG     = 36;
+  const TOP    = 56;
+  const BOT    = 28;
+  const DOT_R  = 13;
+  const INLAY_R = 5;
+
+  const totalW = NUT_W + nFrets * FW + 20;
+  const totalH = TOP + (nStrings - 1) * SG + BOT;
+
+  const fretCenterX = f => f === 0
+    ? NUT_W / 2
+    : NUT_W + (f - 0.5) * FW;
+  const stringY = s => TOP + s * SG;  // s=0 top, s=3 bottom
+
+  svg.setAttribute('viewBox', `0 0 ${totalW} ${totalH}`);
+  svg.setAttribute('width', totalW);
+  svg.setAttribute('height', totalH);
+
+  // Background
+  el('rect', { x:0, y:0, width:totalW, height:totalH, fill:'#0e0d0b', rx:6 });
+
+  // Fret numbers
+  for (let f = 1; f <= nFrets; f++) {
+    const cx = fretCenterX(f);
+    const isInlay = UKU_INLAYS.includes(f);
+    const isOct   = f === 12;
+    const labelY  = TOP - 26;
+    if (isInlay) {
+      const pw = isOct ? 22 : 18;
+      el('rect', { x: cx - pw/2, y: labelY - 10, width: pw, height: 14, rx: 4,
+        fill: isOct ? 'rgba(212,133,58,.18)' : 'rgba(255,255,255,.07)',
+        stroke: isOct ? 'rgba(212,133,58,.5)' : 'rgba(255,255,255,.15)', 'stroke-width': 1 });
+    }
+    el('text', { x: cx, y: labelY, 'text-anchor': 'middle',
+      fill: isOct ? 'var(--accent)' : isInlay ? '#c0b8a8' : '#5a5048',
+      'font-size': isInlay ? 10 : 8.5, 'font-weight': isInlay ? '600' : '400',
+      'font-family': 'DM Mono, monospace' }).textContent = f;
+  }
+
+  // Fretboard body
+  el('rect', { x: NUT_W, y: TOP, width: nFrets * FW,
+    height: (nStrings-1)*SG + 20, fill: '#1a1408', rx: 3 });
+
+  // Nut
+  el('rect', { x: 0, y: TOP - 10, width: NUT_W,
+    height: (nStrings-1)*SG + 20, fill: '#252015', rx: 3 });
+  el('rect', { x: NUT_W - 4, y: TOP, width: 5,
+    height: (nStrings-1)*SG, fill: '#c8b89a', rx: 2 });
+
+  // Fret lines
+  for (let f = 1; f <= nFrets; f++) {
+    const x = NUT_W + f * FW;
+    el('line', { x1: x, y1: TOP, x2: x, y2: TOP + (nStrings-1)*SG,
+      stroke: '#3a3028', 'stroke-width': f % 12 === 0 ? 2 : 0.8 });
+  }
+
+  // Inlay dots
+  UKU_INLAYS.forEach(f => {
+    if (f > nFrets) return;
+    const cx = fretCenterX(f);
+    const midY = TOP + ((nStrings-1)*SG) / 2;
+    if (f === 12) {
+      el('circle', { cx, cy: midY - SG*0.35, r: INLAY_R, fill: '#2a2218' });
+      el('circle', { cx, cy: midY + SG*0.35, r: INLAY_R, fill: '#2a2218' });
+    } else {
+      el('circle', { cx, cy: midY, r: INLAY_R, fill: '#2a2218' });
+    }
+  });
+
+  // String lines + labels
+  for (let s = 0; s < nStrings; s++) {
+    const y = stringY(s);
+    // String line
+    el('line', { x1: NUT_W - 4, y1: y, x2: NUT_W + nFrets*FW + 10, y2: y,
+      stroke: '#c8b89a', 'stroke-width': 0.6 + s * 0.35, opacity: '0.75' });
+    // String name in nut area
+    el('text', { x: NUT_W/2, y: y + 4, 'text-anchor': 'middle',
+      fill: '#6a5e48', 'font-size': 10, 'font-family': 'DM Mono, monospace',
+      'font-weight': '600' }).textContent = UKU_STRING_NAMES[s];
+  }
+
+  // Note dots + hover rings
+  const _dots = [];
+  if (!state.cleared) {
+    for (let s = 0; s < nStrings; s++) {
+      for (let f = 0; f <= nFrets; f++) {
+        const ni = noteAtUkuFret(s, f);
+        if (!noteSet.has(ni)) continue;
+        if (state.rootsOnly && ni !== root) continue;
+
+        const isRoot = ni === root;
+        const cx = fretCenterX(f);
+        const cy = stringY(s);
+        const midi = UKU_STRINGS[s] + f;
+
+        // Glow
+        el('circle', { cx, cy, r: DOT_R + 5,
+          fill: isRoot ? 'var(--accent-glow)' : 'var(--scale-glow)',
+          opacity: 0.5, 'pointer-events': 'none' });
+
+        // Dot
+        el('circle', { cx, cy, r: DOT_R,
+          fill: isRoot ? 'var(--accent)' : 'var(--scale-note)',
+          stroke: isRoot ? '#f0a060' : '#7ac8e8', 'stroke-width': 1.5,
+          'data-midi': midi, style: 'cursor:crosshair' });
+
+        // Label
+        let label = state.showIntervals
+          ? (intervalMap[ni] || '')
+          : state.showNames ? CHROMATIC[ni] : '';
+        if (!state.showIntervals && !state.showNames) label = CHROMATIC[ni];
+        if (label) {
+          const fs = label.length > 2 ? 7.5 : 9;
+          el('text', { x: cx, y: cy + 3.5, 'text-anchor': 'middle',
+            fill: isRoot ? '#fff' : '#e8f4fa', 'font-size': fs,
+            'font-family': 'DM Mono, monospace', 'font-weight': '600',
+            'pointer-events': 'none' }).textContent = label;
+        }
+
+        _dots.push({ cx, cy, midi });
+      }
+    }
+  }
+
+  // Hover rings (top layer)
+  _dots.forEach(({ cx, cy, midi }) => {
+    el('circle', { cx, cy, r: DOT_R + 6,
+      fill: 'rgba(255,255,255,.12)', stroke: 'rgba(255,255,255,.9)',
+      'stroke-width': 2.5, opacity: 0, 'pointer-events': 'none',
+      'data-hover-ring': midi });
+  });
+}
+
 /* ── 9. PIANO RENDERER ───────────────────────────────────────────────────── */
 
 function renderPiano() {
@@ -1753,7 +2267,7 @@ function renderPiano() {
       let fill, strokeCol, strokeW;
       if (isRoot)       { fill='var(--accent)';         strokeCol='#f0a060';           strokeW=2;   }
       else if (inScale) { fill='rgba(74,158,202,.28)';  strokeCol='var(--scale-note)'; strokeW=1.5; }
-      else              { fill='#cfc8bc';               strokeCol='#888';              strokeW=0.6; }
+      else              { fill='#e8e4dc';               strokeCol='#b0a898';           strokeW=0.5; }
       el('rect',{x,y:1,width:WW-2,height:WH-1,fill,stroke:strokeCol,'stroke-width':strokeW,rx:3,
         'data-midi':(START_OCT+oct+1)*12+ni,style:'cursor:crosshair'});
       if (inScale||isRoot) el('rect',{x,y:1,width:WW-2,height:6,rx:3,'pointer-events':'none',
@@ -1778,7 +2292,7 @@ function renderPiano() {
       let fill, strokeCol;
       if (isRoot)       { fill='var(--accent)';     strokeCol='#f0a060'; }
       else if (inScale) { fill='var(--scale-note)'; strokeCol='#7ac8e8'; }
-      else              { fill='#1c1c1c';           strokeCol='#3a3a3a'; }
+      else              { fill='#111111';           strokeCol='#222222'; }
       el('rect',{x,y:1,width:BW,height:BH,fill,stroke:strokeCol,'stroke-width':1,rx:2,
         'data-midi':(START_OCT+oct+1)*12+ni,style:'cursor:crosshair'});
       if (inScale||isRoot) el('rect',{x,y:1,width:BW,height:5,rx:2,'pointer-events':'none',
@@ -1846,12 +2360,268 @@ function renderPiano() {
 
 
 
+/* ── 9c. STAFF NOTATION RENDERER ─────────────────────────────────────────── */
+function renderStaff() {
+  const svg = document.getElementById('staff-svg');
+  if (!svg) return;
+  svg.innerHTML = '';
+  const ns = 'http://www.w3.org/2000/svg';
+  const mk = (tag, attrs, p = svg) => {
+    const e = document.createElementNS(ns, tag);
+    Object.entries(attrs).forEach(([k,v]) => e.setAttribute(k,v));
+    p.appendChild(e); return e;
+  };
+
+  const { root, noteSet, intervalMap } = getScaleData();
+
+  const MIDI_C4    = 60;
+  const rootMidi   = MIDI_C4 + root;
+  const pattern    = SCALES[state.mode] || SCALES.major;
+  const scaleMidis = pattern.map(off => rootMidi + off);
+
+  // ── Layout
+  const LINE_GAP  = 16;   // generous vertical spacing between staff lines
+  const LEFT_PAD  = 86;   // room for treble clef
+  const NOTE_GAP  = 52;   // horizontal spacing between notes
+  const STAFF_TOP = 52;   // top margin (space for notes above staff)
+  const LABEL_H   = 22;   // space below staff for interval labels
+  const W = LEFT_PAD + (scaleMidis.length * 2 + 1) * NOTE_GAP + 48;
+  const H = STAFF_TOP + 4 * LINE_GAP + 60 + LABEL_H; // generous bottom for ledger + stems
+
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('width',  W);
+  svg.setAttribute('height', H);
+  svg.style.display = 'block';
+
+  mk('rect', {x:0,y:0,width:W,height:H,fill:'#141210',rx:6});
+
+  // ── Precise diatonic pitch → y mapping
+  // Staff lines from bottom: E4(64), G4(67), B4(71), D5(74), F5(77)
+  // Each diatonic step = LINE_GAP/2 px upward
+  const DIATONIC_STEPS = { // semitone offset from C → diatonic step (C=0)
+    0:0, 2:1, 4:2, 5:3, 7:4, 9:5, 11:6,
+    1:0.5, 3:1.5, 6:3.5, 8:4.5, 10:5.5  // sharps sit halfway
+  };
+  // E4 = midi 64, sits on bottom line. Its diatonic step from C4 = 2 (E is step 2)
+  const E4_STEP = 2; // E is 2 diatonic steps above C
+  const E4_Y    = STAFF_TOP + 4 * LINE_GAP; // y of bottom staff line
+
+  const noteY = midi => {
+    const semisAboveC4 = midi - MIDI_C4;
+    const octaves      = Math.floor(semisAboveC4 / 12);
+    const semInOct     = ((semisAboveC4 % 12) + 12) % 12;
+    const dStep        = (DIATONIC_STEPS[semInOct] || 0) + octaves * 7;
+    return E4_Y - (dStep - E4_STEP) * (LINE_GAP / 2);
+  };
+
+  // ── Staff lines
+  for (let li = 0; li < 5; li++) {
+    const y = STAFF_TOP + li * LINE_GAP;
+    mk('line', {x1: LEFT_PAD - 14, y1: y, x2: W - 22, y2: y,
+      stroke: '#d8cdb8', 'stroke-width': 1.1});
+  }
+
+  // ── Opening barline
+  mk('line', {x1: LEFT_PAD - 14, y1: STAFF_TOP,
+    x2: LEFT_PAD - 14, y2: STAFF_TOP + 4 * LINE_GAP,
+    stroke: '#d8cdb8', 'stroke-width': 1.4});
+
+  // ── Treble clef
+  mk('text', {x: 10, y: STAFF_TOP + 4*LINE_GAP + 8, fill:'#d8c8a0',
+    'font-size': 72, 'font-family': 'Georgia, "Times New Roman", serif',
+  }).textContent = '𝄞';
+
+  // ── Scale + mode label
+  mk('text', {x: LEFT_PAD, y: H - 4, 'text-anchor':'start',
+    fill:'#6a5a40', 'font-size': 10, 'font-family':'DM Mono, monospace',
+    'letter-spacing':'.07em'
+  }).textContent = `${state.key}  ${SCALE_LABELS[state.mode]||state.mode}`;
+
+  // ── Notes: ascending then descending
+  const allMidis  = [...scaleMidis, ...[...scaleMidis].reverse().slice(1)];
+  const ascEndIdx = scaleMidis.length;
+  const _hoverDots = [];
+
+  allMidis.forEach((midi, i) => {
+    const x    = LEFT_PAD + (i + 0.5) * NOTE_GAP;
+    const y    = noteY(midi);
+    const ni   = ((midi % 12) + 12) % 12;
+    const isRoot  = ni === root;
+    const fill    = isRoot ? 'var(--accent)' : 'var(--scale-note)';
+    const stroke  = isRoot ? '#f0a060' : '#7ac8e8';
+    const noteName = CHROMATIC[ni];
+
+    // Ledger lines below staff
+    const botLine = STAFF_TOP + 4 * LINE_GAP;
+    for (let ly = botLine + LINE_GAP; ly <= y + 2; ly += LINE_GAP)
+      mk('line', {x1:x-11,y1:ly,x2:x+11,y2:ly, stroke:'#d8cdb8','stroke-width':1.1});
+
+    // Ledger lines above staff
+    for (let ly = STAFF_TOP - LINE_GAP; ly >= y - 2; ly -= LINE_GAP)
+      mk('line', {x1:x-11,y1:ly,x2:x+11,y2:ly, stroke:'#d8cdb8','stroke-width':1.1});
+
+    // Stem
+    const stemUp  = y >= STAFF_TOP + 2 * LINE_GAP;
+    const stemX   = x + (stemUp ? 8 : -8);
+    mk('line', {x1: stemX, y1: y, x2: stemX, y2: y - (stemUp ? 36 : -36),
+      stroke: '#8a7a60', 'stroke-width': 1.3});
+
+    // Note head glow
+    mk('ellipse', {cx:x, cy:y, rx:12, ry:9.5,
+      fill: isRoot ? 'var(--accent-glow)' : 'var(--scale-glow)', opacity:0.5,
+      'pointer-events':'none'});
+
+    // Note head
+    mk('ellipse', {cx:x, cy:y, rx:9, ry:7,
+      fill, stroke, 'stroke-width':1.3,
+      transform:`rotate(-14,${x},${y})`,
+      'data-midi': midi, style:'cursor:crosshair'});
+
+    // Note name inside the head
+    mk('text', {x, y: y + 3.5, 'text-anchor':'middle',
+      fill: '#fff', 'font-size': 8.5,
+      'font-family': 'DM Mono, monospace', 'font-weight': '700',
+      'pointer-events': 'none'
+    }).textContent = noteName;
+
+    // Interval label below
+    mk('text', {x, y: H - 5, 'text-anchor':'middle',
+      fill: isRoot ? 'var(--accent)' : '#6a6050',
+      'font-size': 9, 'font-family':'DM Mono, monospace', 'font-weight':'600'
+    }).textContent = intervalMap[ni] || '';
+
+    _hoverDots.push({ x, y, midi });
+  });
+
+  // ── Hover rings (top layer)
+  _hoverDots.forEach(({ x, y, midi }) => {
+    mk('ellipse', { cx:x, cy:y, rx:13, ry:10.5,
+      fill: 'rgba(255,255,255,.14)', stroke: 'rgba(255,255,255,.9)',
+      'stroke-width': 2.2, opacity: 0,
+      transform:`rotate(-14,${x},${y})`,
+      'pointer-events': 'none',
+      'data-hover-ring': midi });
+  });
+
+  // ── Mid barline (after ascending run)
+  const midX = LEFT_PAD + ascEndIdx * NOTE_GAP;
+  mk('line', {x1: midX, y1: STAFF_TOP, x2: midX, y2: STAFF_TOP + 4*LINE_GAP,
+    stroke:'#9a8a68','stroke-width':1.4});
+
+  // ── Final double barline
+  const endX = W - 24;
+  mk('line', {x1:endX,   y1:STAFF_TOP, x2:endX,   y2:STAFF_TOP+4*LINE_GAP, stroke:'#d8cdb8','stroke-width':1.4});
+  mk('line', {x1:endX+5, y1:STAFF_TOP, x2:endX+5, y2:STAFF_TOP+4*LINE_GAP, stroke:'#d8cdb8','stroke-width':3.5});
+}
+
+/* ── 10. INSTRUMENT MANAGER ──────────────────────────────────────────────── */
+
+const INST_META = {
+  guitar:  { label:'Kitara',  icon:'🎸', subtitle:'Standard EADGBe · 24 frets' },
+  piano:   { label:'Piano',   icon:'🎹', subtitle:'C2 – B5 · Guitar range' },
+  ukulele: { label:'Ukulele', icon:'🪗', subtitle:'G C E A · Standard tuning · 15 frets' },
+  staff:   { label:'Nuotit',  icon:'🎵', subtitle:'Treble clef · Ascending & descending' },
+};
+
+// Initial order and visibility
+let _instOrder = ['guitar','piano','ukulele','staff'];
+let _instOn    = { guitar:true, piano:true, ukulele:false, staff:false };
+
+function buildInstManager() {
+  const list = document.getElementById('inst-list');
+  list.innerHTML = '';
+  _instOrder.forEach((id, idx) => {
+    const meta = INST_META[id];
+    const on   = _instOn[id];
+    const row  = document.createElement('div');
+    row.className = 'inst-row' + (on ? '' : ' inst-off');
+    row.dataset.id = id;
+    row.innerHTML = `
+      <span class="inst-drag-handle" title="Järjestä">⠿</span>
+      <button class="inst-toggle ${on?'on':''}" data-id="${id}" title="${on?'Piilota':'Näytä'}"></button>
+      <span class="inst-icon">${meta.icon}</span>
+      <span class="inst-name">${meta.label}</span>
+      <div class="inst-order-btns">
+        <button class="inst-order-btn" data-move="-1" data-id="${id}" ${idx===0?'disabled':''}>▲</button>
+        <button class="inst-order-btn" data-move="1"  data-id="${id}" ${idx===_instOrder.length-1?'disabled':''}>▼</button>
+      </div>`;
+    list.appendChild(row);
+  });
+
+  // Toggle buttons
+  list.querySelectorAll('.inst-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.id;
+      _instOn[id] = !_instOn[id];
+      buildInstManager();
+      rebuildPanels();
+    });
+  });
+
+  // Order buttons
+  list.querySelectorAll('.inst-order-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id  = btn.dataset.id;
+      const dir = parseInt(btn.dataset.move);
+      const idx = _instOrder.indexOf(id);
+      const nIdx = idx + dir;
+      if (nIdx < 0 || nIdx >= _instOrder.length) return;
+      [_instOrder[idx], _instOrder[nIdx]] = [_instOrder[nIdx], _instOrder[idx]];
+      buildInstManager();
+      rebuildPanels();
+    });
+  });
+}
+
+function rebuildPanels() {
+  // Instruments are in stable DOM homes – we just show/hide and reorder them
+  const container = document.getElementById('inst-panels');
+
+  // Hide all homes first
+  ['piano','ukulele','staff'].forEach(id => {
+    const home = document.getElementById(`svg-home-${id}`);
+    if (home) home.style.display = 'none';
+  });
+
+  // Update headers and show/reorder active non-guitar instruments in _instOrder sequence
+  let insertBefore = null; // track ordering
+  // We'll collect active instrument homes in order and reorder them in the DOM
+  const homes = [];
+  _instOrder.forEach(id => {
+    if (id === 'guitar' || !_instOn[id]) return;
+    const home = document.getElementById(`svg-home-${id}`);
+    if (!home) return;
+    const meta = INST_META[id];
+    // Ensure header exists
+    let hdr = home.querySelector('.inst-panel-header');
+    if (!hdr) {
+      hdr = document.createElement('div');
+      hdr.className = 'inst-panel-header';
+      home.insertBefore(hdr, home.firstChild);
+    }
+    hdr.innerHTML = `<span class="inst-panel-title">${meta.icon} ${meta.label}</span><span class="inst-panel-subtitle">${meta.subtitle}</span>`;
+    home.style.display = '';
+    homes.push(home);
+  });
+
+  // Reorder homes in container to match _instOrder
+  homes.forEach(home => container.appendChild(home));
+
+  renderActiveInstruments();
+}
+
+function renderActiveInstruments() {
+  if (_instOn.piano)   renderPiano();
+  if (_instOn.ukulele) renderUkulele();
+  if (_instOn.staff)   renderStaff();
+  setupHoverListeners();
+}
+
 function render() {
   updatePositionOptions();
   updateInfoBar();
   renderFretboard();
-  renderPiano();
-  setupHoverListeners();
+  renderActiveInstruments();
 }
 
 /* ── 11. HOVER CROSS-HIGHLIGHT ───────────────────────────────────────────── */
@@ -1859,8 +2629,6 @@ function render() {
 let _activeHoverNote = null;
 
 function setupHoverListeners() {
-  const fretSvg  = document.getElementById('fretboard-svg');
-  const pianoSvg = document.getElementById('piano-svg');
   const pill     = document.getElementById('hover-pill');
   const pillNote = document.getElementById('hover-pill-note');
   const pillInt  = document.getElementById('hover-pill-int');
@@ -1870,20 +2638,15 @@ function setupHoverListeners() {
   function showHover(midi, srcLabel) {
     if (_activeHoverNote === midi) return;
     _activeHoverNote = midi;
-
-    // Match exact MIDI number — octave-specific
     document.querySelectorAll('[data-hover-ring]').forEach(el => {
       el.setAttribute('opacity',
         el.getAttribute('data-hover-ring') === String(midi) ? '1' : '0');
     });
-
-    // Derive pitch class + octave from MIDI
     const ni  = ((midi % 12) + 12) % 12;
     const oct = Math.floor(midi / 12) - 1;
     const { root, noteSet, intervalMap } = getScaleData();
     const isRoot  = ni === root;
     const inScale = noteSet.has(ni);
-
     pillNote.textContent = CHROMATIC[ni] + oct;
     pillInt.textContent  = inScale ? (intervalMap[ni] || '') : '—';
     pillSrc.textContent  = srcLabel;
@@ -1894,33 +2657,30 @@ function setupHoverListeners() {
   function clearHover() {
     if (_activeHoverNote === null) return;
     _activeHoverNote = null;
-    document.querySelectorAll('[data-hover-ring]').forEach(el => {
-      el.setAttribute('opacity', '0');
-    });
+    document.querySelectorAll('[data-hover-ring]').forEach(el => el.setAttribute('opacity','0'));
     pill.classList.remove('visible');
     hint.style.opacity = '0.5';
   }
 
-  // Event delegation on fretboard
-  fretSvg.addEventListener('mouseover', e => {
-    const midi = e.target.getAttribute('data-midi');
-    if (midi !== null) showHover(parseInt(midi), 'Guitar');
-  });
-  fretSvg.addEventListener('mouseleave', clearHover);
+  function attachHover(svgId, label) {
+    const svgEl = document.getElementById(svgId);
+    if (!svgEl) return;
+    const fresh = svgEl.cloneNode(true);
+    svgEl.parentNode.replaceChild(fresh, svgEl);
+    fresh.addEventListener('mouseover', e => {
+      const midi = e.target.getAttribute('data-midi');
+      if (midi !== null) showHover(parseInt(midi), label);
+    });
+    fresh.addEventListener('mouseleave', clearHover);
+  }
 
-  // Event delegation on piano
-  pianoSvg.addEventListener('mouseover', e => {
-    const midi = e.target.getAttribute('data-midi');
-    if (midi !== null) showHover(parseInt(midi), 'Piano');
-  });
-  pianoSvg.addEventListener('mouseleave', clearHover);
+  attachHover('fretboard-svg', 'Guitar');
+  attachHover('piano-svg',     'Piano');
+  attachHover('ukulele-svg',   'Ukulele');
+  attachHover('staff-svg',     'Nuotit');
 }
 
 
-
-/* ── 10. EVENT WIRING ────────────────────────────────────────────────────── */
-
-// Key
 document.getElementById('sel-key').addEventListener('change', e => {
   state.key = e.target.value;
   state.cleared = false;
@@ -2107,16 +2867,16 @@ function compute3NPSTab(key, mode, patternNum) {
  * Renders proper guitar tab: numbers ON continuous string lines, left→right sequence.
  * ascending=false: shows full ascending + descending run.
  */
-function renderTabSVG(stringData, { ascending = false } = {}) {
+function renderTabSVG(stringData, { ascending = false, large = false } = {}) {
   const ns = 'http://www.w3.org/2000/svg';
 
   // ── Layout constants
-  const SG       = 14;    // gap between string lines (px)
-  const TOPPAD   = 14;    // space above top string
-  const BOTPAD   = 22;    // space below bottom string (for labels)
-  const TAB_W    = 30;    // TAB marker column width
-  const NOTE_W   = 26;    // horizontal space per note
-  const PAD_R    = 16;
+  const SG       = large ? 20   : 14;   // gap between string lines (px)
+  const TOPPAD   = large ? 20   : 14;   // space above top string
+  const BOTPAD   = large ? 28   : 22;   // space below bottom string (for labels)
+  const TAB_W    = large ? 40   : 30;   // TAB marker column width
+  const NOTE_W   = large ? 36   : 26;   // horizontal space per note
+  const PAD_R    = large ? 20   : 16;
 
   const totalStrings = 6;
   const totalH = TOPPAD + (totalStrings - 1) * SG + BOTPAD;
@@ -2180,7 +2940,8 @@ function renderTabSVG(stringData, { ascending = false } = {}) {
   const strY = row => TOPPAD + row * SG;
 
   // ── Background
-  mk('rect', { x: 0, y: 0, width: totalW, height: totalH, fill: '#0f0e0c', rx: 5 });
+  mk('rect', { x: 0, y: 0, width: totalW, height: totalH,
+    fill: large ? '#141210' : '#0f0e0c', rx: 5 });
 
   // ── TAB marker (left column)
   'TAB'.split('').forEach((ch, i) => {
@@ -2203,7 +2964,7 @@ function renderTabSVG(stringData, { ascending = false } = {}) {
     const y = strY(row);
     mk('line', {
       x1: TAB_W, y1: y, x2: totalW - PAD_R, y2: y,
-      stroke: '#3a3028', 'stroke-width': 0.85
+      stroke: '#5a4e38', 'stroke-width': 1
     });
 
     // String label at far right
@@ -2235,7 +2996,7 @@ function renderTabSVG(stringData, { ascending = false } = {}) {
     const lblY = totalH - 5;
 
     mk('text', { x: ascMidX, y: lblY, 'text-anchor': 'middle',
-      fill: '#5a5040', 'font-size': 8, 'font-family': 'DM Mono, monospace'
+      fill: '#8a7a60', 'font-size': 8, 'font-family': 'DM Mono, monospace'
     }).textContent = '↑  nouseva';
 
     if (!ascending && descEvents.length > 1) {
@@ -2255,26 +3016,32 @@ function renderTabSVG(stringData, { ascending = false } = {}) {
 
   // ── Draw note numbers ON string lines
   allEvents.forEach(({ row, fret, isDesc }, ni) => {
-    const x = TAB_W + ni * NOTE_W + NOTE_W / 2;
-    const y = strY(row);
+    const x   = TAB_W + ni * NOTE_W + NOTE_W / 2;
+    const y   = strY(row);
     const str = String(fret);
-    const numW = str.length > 1 ? 14 : 10;
+    const isDouble = str.length > 1;
+    const pillW = large ? (isDouble ? 22 : 17) : (isDouble ? 16 : 12);
+    const pillH = large ? 18 : 14;
+    const fontSize = large ? 13 : 11;
 
-    // Punch through the line (background rect)
+    // Solid pill background — punches through line and provides clear contrast
     mk('rect', {
-      x: x - numW / 2, y: y - 7,
-      width: numW, height: 14,
-      fill: '#0f0e0c'
+      x: x - pillW / 2, y: y - pillH / 2,
+      width: pillW, height: pillH,
+      fill: '#1e1c17',
+      stroke: '#3a3224',
+      'stroke-width': large ? 1 : 0.8,
+      rx: 3
     });
 
-    // The number
+    // Number
     mk('text', {
-      x, y: y + 4.5,
+      x, y: y + fontSize * 0.38,
       'text-anchor': 'middle',
-      fill: '#d4c8a8',
-      'font-size': 11,
+      fill: '#ffffff',
+      'font-size': fontSize,
       'font-family': 'DM Mono, monospace',
-      'font-weight': '600',
+      'font-weight': '700',
       'letter-spacing': '-.02em'
     }).textContent = str;
   });
@@ -2326,7 +3093,7 @@ function renderMiniFretboard(key, mode, boxNum, tabData) {
       stroke: fi === 0 ? '#888' : '#3a3028', 'stroke-width': fi===0?2:0.8 });
     if (fi > 0 && fi <= nFrets) {
       mk('text', { x: PAD + (fi-0.5)*FW, y: totalH - 1,
-        'text-anchor':'middle', fill:'#3a3028',
+        'text-anchor':'middle', fill:'#c8bfaa',
         'font-size':7, 'font-family':'DM Mono, monospace'
       }).textContent = minFret + fi;
     }
@@ -2392,6 +3159,12 @@ function renderExercisesPage() {
       tabWrap.style.overflowX = 'auto';
       tabWrap.appendChild(renderTabSVG(tabData, { ascending: false }));
       body.appendChild(tabWrap);
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', () => openExModal({
+        title: `Box ${boxNum}`,
+        subtitle: `${key} ${modeName} · 2 ääntä per kieli`,
+        tabData, key, mode, boxNum
+      }));
       card.appendChild(body);
       grid.appendChild(card);
     }
@@ -2427,6 +3200,12 @@ function renderExercisesPage() {
       tabLbl.textContent = '3 ääntä per kieli · Nouseva ↑  &  Laskeva ↓ juoksu';
       body.appendChild(tabLbl);
       body.appendChild(renderTabSVG(tabData, { ascending: false }));
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', () => openExModal({
+        title: `3NPS Pattern ${p}`,
+        subtitle: `${descs[p-1] || ''} · ${key} ${modeName}`,
+        tabData, key, mode, boxNum: null
+      }));
       card.appendChild(body);
       extGrid.appendChild(card);
     }
@@ -2755,6 +3534,53 @@ _origNavHandler.forEach(btn => {
 });
 
 
+/* ── EX-7b. EXERCISE MODAL ────────────────────────────────────────────────── */
+function openExModal({ title, subtitle, tabData, key, mode, boxNum }) {
+  document.getElementById('ex-modal-title').textContent    = title;
+  document.getElementById('ex-modal-subtitle').textContent = subtitle;
+
+  // Fretboard (only for box cards)
+  const fretEl = document.getElementById('ex-modal-fret');
+  fretEl.innerHTML = '';
+  if (tabData && boxNum != null) {
+    const mini = renderMiniFretboard(key, mode, boxNum, tabData);
+    if (mini) {
+      // Render larger version — scale up with CSS
+      mini.style.transform = 'scale(1)';
+      mini.removeAttribute('width');
+      mini.style.maxWidth = '100%';
+      fretEl.appendChild(mini);
+    }
+  }
+
+  // Full-width tab SVG
+  const tabEl = document.getElementById('ex-modal-tab');
+  tabEl.innerHTML = '';
+  if (tabData) {
+    const svg = renderTabSVG(tabData, { ascending: false, large: true });
+    svg.removeAttribute('width');
+    svg.style.maxWidth = '100%';
+    svg.style.width    = '100%';
+    tabEl.appendChild(svg);
+  }
+
+  const backdrop = document.getElementById('ex-modal-backdrop');
+  backdrop.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeExModal() {
+  document.getElementById('ex-modal-backdrop').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Close on backdrop click or ESC
+document.getElementById('ex-modal-backdrop').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeExModal();
+});
+document.getElementById('ex-modal-close').addEventListener('click', closeExModal);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeExModal(); });
+
 /* ── EX-8. VIEW TOGGLE WIRING ────────────────────────────────────────────── */
 let _exView = 'box'; // 'box' | '3nps'
 
@@ -2772,173 +3598,325 @@ document.querySelectorAll('.ex-view-btn').forEach(btn => {
 /* ── EX-9. SONG SUGGESTIONS (static database) ────────────────────────────── */
 let _lastSongKey = null, _lastSongScale = null;
 
-const SONG_DB = {
-  // key → [ {title, artist, genre} ]  — curated rock/metal classics
+// Minor-based songs (minor pentatonic / blues)
+const SONG_DB_MINOR = {
   'A': [
-    {title:'Back in Black',          artist:'AC/DC',             genre:'Hard Rock'},
-    {title:'Whole Lotta Love',       artist:'Led Zeppelin',      genre:'Hard Rock'},
-    {title:'Highway to Hell',        artist:'AC/DC',             genre:'Hard Rock'},
-    {title:'Iron Man',               artist:'Black Sabbath',     genre:'Heavy Metal'},
-    {title:'Crazy Train',            artist:'Ozzy Osbourne',     genre:'Heavy Metal'},
-    {title:'Sweet Home Alabama',     artist:'Lynyrd Skynyrd',    genre:'Southern Rock'},
-    {title:'You Shook Me All Night', artist:'AC/DC',             genre:'Hard Rock'},
-    {title:'La Grange',              artist:'ZZ Top',            genre:'Blues Rock'},
-    {title:'Paranoid',               artist:'Black Sabbath',     genre:'Heavy Metal'},
-    {title:'Walk This Way',          artist:'Aerosmith',         genre:'Hard Rock'},
+    {title:'Back in Black',           artist:'AC/DC',                    genre:'Hard Rock'},
+    {title:'Whole Lotta Love',        artist:'Led Zeppelin',             genre:'Hard Rock'},
+    {title:'Iron Man',                artist:'Black Sabbath',            genre:'Heavy Metal'},
+    {title:'Crazy Train',             artist:'Ozzy Osbourne',            genre:'Heavy Metal'},
+    {title:'La Grange',               artist:'ZZ Top',                   genre:'Blues Rock'},
+    {title:'Paranoid',                artist:'Black Sabbath',            genre:'Heavy Metal'},
+    {title:'Cult of Personality',     artist:'Living Colour',            genre:'Hard Rock'},
+    {title:'Detroit Rock City',       artist:'KISS',                     genre:'Hard Rock'},
+    {title:'Rock You Like a Hurricane',artist:'Scorpions',               genre:'Hard Rock'},
+    {title:'Panama',                  artist:'Van Halen',                genre:'Hard Rock'},
   ],
   'E': [
-    {title:'Smoke on the Water',     artist:'Deep Purple',       genre:'Hard Rock'},
-    {title:'Purple Haze',            artist:'Jimi Hendrix',      genre:'Psychedelic Rock'},
-    {title:'Enter Sandman',          artist:'Metallica',         genre:'Heavy Metal'},
-    {title:'Jump',                   artist:'Van Halen',         genre:'Hard Rock'},
-    {title:'Eruption',               artist:'Van Halen',         genre:'Hard Rock'},
-    {title:'The Trooper',            artist:'Iron Maiden',       genre:'Heavy Metal'},
-    {title:'Breaking the Law',       artist:'Judas Priest',      genre:'Heavy Metal'},
-    {title:'Ace of Spades',          artist:'Motörhead',         genre:'Heavy Metal'},
-    {title:'The Wicker Man',         artist:'Iron Maiden',       genre:'Heavy Metal'},
-    {title:'Balls to the Wall',      artist:'Accept',            genre:'Heavy Metal'},
+    {title:'Smoke on the Water',      artist:'Deep Purple',              genre:'Hard Rock'},
+    {title:'Purple Haze',             artist:'Jimi Hendrix',             genre:'Psychedelic Rock'},
+    {title:'Enter Sandman',           artist:'Metallica',                genre:'Heavy Metal'},
+    {title:'The Trooper',             artist:'Iron Maiden',              genre:'Heavy Metal'},
+    {title:'Breaking the Law',        artist:'Judas Priest',             genre:'Heavy Metal'},
+    {title:'Ace of Spades',           artist:'Motörhead',                genre:'Heavy Metal'},
+    {title:'Balls to the Wall',       artist:'Accept',                   genre:'Heavy Metal'},
+    {title:'Highway Star',            artist:'Deep Purple',              genre:'Hard Rock'},
+    {title:'Black Night',             artist:'Deep Purple',              genre:'Hard Rock'},
+    {title:'Strange Kind of Woman',   artist:'Deep Purple',              genre:'Hard Rock'},
   ],
   'D': [
-    {title:'Master of Puppets',      artist:'Metallica',         genre:'Thrash Metal'},
-    {title:'Creeping Death',         artist:'Metallica',         genre:'Thrash Metal'},
-    {title:'Black Dog',              artist:'Led Zeppelin',      genre:'Hard Rock'},
-    {title:'Raining Blood',          artist:'Slayer',            genre:'Thrash Metal'},
-    {title:'War Pigs',               artist:'Black Sabbath',     genre:'Heavy Metal'},
-    {title:'Bark at the Moon',       artist:'Ozzy Osbourne',     genre:'Heavy Metal'},
-    {title:'Painkiller',             artist:'Judas Priest',      genre:'Heavy Metal'},
-    {title:'Hangar 18',              artist:'Megadeth',          genre:'Thrash Metal'},
-    {title:'Cowboys from Hell',      artist:'Pantera',           genre:'Groove Metal'},
-    {title:'Laid to Rest',           artist:'Lamb of God',       genre:'Groove Metal'},
+    {title:'Master of Puppets',       artist:'Metallica',                genre:'Thrash Metal'},
+    {title:'Creeping Death',          artist:'Metallica',                genre:'Thrash Metal'},
+    {title:'Raining Blood',           artist:'Slayer',                   genre:'Thrash Metal'},
+    {title:'War Pigs',                artist:'Black Sabbath',            genre:'Heavy Metal'},
+    {title:'Painkiller',              artist:'Judas Priest',             genre:'Heavy Metal'},
+    {title:'Hangar 18',               artist:'Megadeth',                 genre:'Thrash Metal'},
+    {title:'Cowboys from Hell',       artist:'Pantera',                  genre:'Groove Metal'},
+    {title:'Laid to Rest',            artist:'Lamb of God',              genre:'Groove Metal'},
+    {title:'The Sickness',            artist:'Disturbed',                genre:'Nu Metal'},
+    {title:'Down with the Sickness',  artist:'Disturbed',                genre:'Nu Metal'},
   ],
   'G': [
-    {title:'Stairway to Heaven',     artist:'Led Zeppelin',      genre:'Hard Rock'},
-    {title:'Sweet Child O\' Mine',   artist:'Guns N\' Roses',    genre:'Hard Rock'},
-    {title:'November Rain',          artist:'Guns N\' Roses',    genre:'Hard Rock'},
-    {title:'Comfortably Numb',       artist:'Pink Floyd',        genre:'Rock'},
-    {title:'Knockin\' on Heaven\'s Door', artist:'Guns N\' Roses', genre:'Rock'},
-    {title:'Wish You Were Here',     artist:'Pink Floyd',        genre:'Rock'},
-    {title:'Money for Nothing',      artist:'Dire Straits',      genre:'Rock'},
-    {title:'All Along the Watchtower', artist:'Jimi Hendrix',    genre:'Blues Rock'},
-    {title:'Bohemian Rhapsody',      artist:'Queen',             genre:'Hard Rock'},
-    {title:'Under the Bridge',       artist:'Red Hot Chili Peppers', genre:'Alternative Rock'},
+    {title:'Whole Lotta Love',        artist:'Led Zeppelin',             genre:'Hard Rock'},
+    {title:'You Shook Me',            artist:'Led Zeppelin',             genre:'Blues Rock'},
+    {title:'Since I\'ve Been Loving You', artist:'Led Zeppelin',        genre:'Blues Rock'},
+    {title:'Money for Nothing',       artist:'Dire Straits',             genre:'Rock'},
+    {title:'All Along the Watchtower',artist:'Jimi Hendrix',             genre:'Blues Rock'},
+    {title:'The Lemon Song',          artist:'Led Zeppelin',             genre:'Blues Rock'},
+    {title:'Bring It On Home',        artist:'Led Zeppelin',             genre:'Blues Rock'},
+    {title:'Travelling Riverside Blues',artist:'Led Zeppelin',          genre:'Blues Rock'},
+    {title:'Crossroads',              artist:'Cream',                    genre:'Blues Rock'},
+    {title:'Sunshine of Your Love',   artist:'Cream',                    genre:'Blues Rock'},
   ],
   'C': [
-    {title:'Killing in the Name',    artist:'Rage Against the Machine', genre:'Funk Metal'},
-    {title:'Bombtrack',              artist:'Rage Against the Machine', genre:'Funk Metal'},
-    {title:'Welcome to the Jungle',  artist:'Guns N\' Roses',    genre:'Hard Rock'},
-    {title:'Cochise',                artist:'Audioslave',        genre:'Hard Rock'},
-    {title:'Like a Stone',           artist:'Audioslave',        genre:'Hard Rock'},
-    {title:'Guerrilla Radio',        artist:'Rage Against the Machine', genre:'Funk Metal'},
-    {title:'Halo',                   artist:'Disturbed',         genre:'Nu Metal'},
-    {title:'Land of Confusion',      artist:'Disturbed',         genre:'Nu Metal'},
-    {title:'Down with the Sickness', artist:'Disturbed',         genre:'Nu Metal'},
-    {title:'Sober',                  artist:'Tool',              genre:'Alternative Metal'},
+    {title:'Killing in the Name',     artist:'Rage Against the Machine', genre:'Funk Metal'},
+    {title:'Cochise',                 artist:'Audioslave',               genre:'Hard Rock'},
+    {title:'Guerrilla Radio',         artist:'Rage Against the Machine', genre:'Funk Metal'},
+    {title:'Halo',                    artist:'Disturbed',                genre:'Nu Metal'},
+    {title:'Land of Confusion',       artist:'Disturbed',                genre:'Nu Metal'},
+    {title:'Sober',                   artist:'Tool',                     genre:'Alternative Metal'},
+    {title:'Forty Six & 2',           artist:'Tool',                     genre:'Alternative Metal'},
+    {title:'Schism',                  artist:'Tool',                     genre:'Progressive Metal'},
+    {title:'Stinkfist',               artist:'Tool',                     genre:'Alternative Metal'},
+    {title:'Aenema',                  artist:'Tool',                     genre:'Alternative Metal'},
   ],
   'B': [
-    {title:'Nothing Else Matters',   artist:'Metallica',         genre:'Heavy Metal'},
-    {title:'Fade to Black',          artist:'Metallica',         genre:'Heavy Metal'},
-    {title:'One',                    artist:'Metallica',         genre:'Heavy Metal'},
-    {title:'The Unforgiven',         artist:'Metallica',         genre:'Heavy Metal'},
-    {title:'Sanitarium',             artist:'Metallica',         genre:'Heavy Metal'},
-    {title:'Tornado of Souls',       artist:'Megadeth',          genre:'Thrash Metal'},
-    {title:'Rust in Peace',          artist:'Megadeth',          genre:'Thrash Metal'},
-    {title:'Orion',                  artist:'Metallica',         genre:'Heavy Metal'},
-    {title:'To Live is to Die',      artist:'Metallica',         genre:'Heavy Metal'},
-    {title:'The Call of Ktulu',      artist:'Metallica',         genre:'Heavy Metal'},
+    {title:'Nothing Else Matters',    artist:'Metallica',                genre:'Heavy Metal'},
+    {title:'Fade to Black',           artist:'Metallica',                genre:'Heavy Metal'},
+    {title:'One',                     artist:'Metallica',                genre:'Heavy Metal'},
+    {title:'The Unforgiven',          artist:'Metallica',                genre:'Heavy Metal'},
+    {title:'Sanitarium',              artist:'Metallica',                genre:'Heavy Metal'},
+    {title:'Tornado of Souls',        artist:'Megadeth',                 genre:'Thrash Metal'},
+    {title:'Orion',                   artist:'Metallica',                genre:'Heavy Metal'},
+    {title:'The Call of Ktulu',       artist:'Metallica',                genre:'Heavy Metal'},
+    {title:'For Whom the Bell Tolls', artist:'Metallica',                genre:'Heavy Metal'},
+    {title:'Sanitarium',              artist:'Metallica',                genre:'Heavy Metal'},
   ],
   'F#': [
-    {title:'Holy Wars',              artist:'Megadeth',          genre:'Thrash Metal'},
-    {title:'Symphony of Destruction',artist:'Megadeth',          genre:'Thrash Metal'},
-    {title:'Peace Sells',            artist:'Megadeth',          genre:'Thrash Metal'},
-    {title:'Battery',                artist:'Metallica',         genre:'Thrash Metal'},
-    {title:'Disposable Heroes',      artist:'Metallica',         genre:'Thrash Metal'},
-    {title:'Fear of the Dark',       artist:'Iron Maiden',       genre:'Heavy Metal'},
-    {title:'Number of the Beast',    artist:'Iron Maiden',       genre:'Heavy Metal'},
-    {title:'Run to the Hills',       artist:'Iron Maiden',       genre:'Heavy Metal'},
-    {title:'Aces High',              artist:'Iron Maiden',       genre:'Heavy Metal'},
-    {title:'Hallowed Be Thy Name',   artist:'Iron Maiden',       genre:'Heavy Metal'},
+    {title:'Holy Wars',               artist:'Megadeth',                 genre:'Thrash Metal'},
+    {title:'Symphony of Destruction', artist:'Megadeth',                 genre:'Thrash Metal'},
+    {title:'Peace Sells',             artist:'Megadeth',                 genre:'Thrash Metal'},
+    {title:'Battery',                 artist:'Metallica',                genre:'Thrash Metal'},
+    {title:'Disposable Heroes',       artist:'Metallica',                genre:'Thrash Metal'},
+    {title:'Fear of the Dark',        artist:'Iron Maiden',              genre:'Heavy Metal'},
+    {title:'Number of the Beast',     artist:'Iron Maiden',              genre:'Heavy Metal'},
+    {title:'Run to the Hills',        artist:'Iron Maiden',              genre:'Heavy Metal'},
+    {title:'Aces High',               artist:'Iron Maiden',              genre:'Heavy Metal'},
+    {title:'Hallowed Be Thy Name',    artist:'Iron Maiden',              genre:'Heavy Metal'},
   ],
   'F': [
-    {title:'Seek & Destroy',         artist:'Metallica',         genre:'Heavy Metal'},
-    {title:'Whiplash',               artist:'Metallica',         genre:'Thrash Metal'},
-    {title:'Motorbreath',            artist:'Metallica',         genre:'Thrash Metal'},
-    {title:'The Four Horsemen',      artist:'Metallica',         genre:'Thrash Metal'},
-    {title:'Metal Militia',          artist:'Metallica',         genre:'Thrash Metal'},
-    {title:'Killers',                artist:'Iron Maiden',       genre:'Heavy Metal'},
-    {title:'Wrathchild',             artist:'Iron Maiden',       genre:'Heavy Metal'},
-    {title:'Invaders',               artist:'Iron Maiden',       genre:'Heavy Metal'},
-    {title:'The Prisoner',           artist:'Iron Maiden',       genre:'Heavy Metal'},
-    {title:'22 Acacia Avenue',       artist:'Iron Maiden',       genre:'Heavy Metal'},
+    {title:'Seek & Destroy',          artist:'Metallica',                genre:'Heavy Metal'},
+    {title:'Whiplash',                artist:'Metallica',                genre:'Thrash Metal'},
+    {title:'Motorbreath',             artist:'Metallica',                genre:'Thrash Metal'},
+    {title:'The Four Horsemen',       artist:'Metallica',                genre:'Thrash Metal'},
+    {title:'Metal Militia',           artist:'Metallica',                genre:'Thrash Metal'},
+    {title:'Killers',                 artist:'Iron Maiden',              genre:'Heavy Metal'},
+    {title:'Wrathchild',              artist:'Iron Maiden',              genre:'Heavy Metal'},
+    {title:'Invaders',                artist:'Iron Maiden',              genre:'Heavy Metal'},
+    {title:'The Prisoner',            artist:'Iron Maiden',              genre:'Heavy Metal'},
+    {title:'22 Acacia Avenue',        artist:'Iron Maiden',              genre:'Heavy Metal'},
   ],
   'C#': [
-    {title:'Angel of Death',         artist:'Slayer',            genre:'Thrash Metal'},
-    {title:'Reign in Blood',         artist:'Slayer',            genre:'Thrash Metal'},
-    {title:'South of Heaven',        artist:'Slayer',            genre:'Thrash Metal'},
-    {title:'Seasons in the Abyss',   artist:'Slayer',            genre:'Thrash Metal'},
-    {title:'Hammer Smashed Face',    artist:'Cannibal Corpse',   genre:'Death Metal'},
-    {title:'Toxic Waltz',            artist:'Exodus',            genre:'Thrash Metal'},
-    {title:'Strike of the Beast',    artist:'Exodus',            genre:'Thrash Metal'},
-    {title:'Bonded by Blood',        artist:'Exodus',            genre:'Thrash Metal'},
-    {title:'The Haunting',           artist:'Kamelot',           genre:'Power Metal'},
-    {title:'March of Mephisto',      artist:'Kamelot',           genre:'Power Metal'},
+    {title:'Angel of Death',          artist:'Slayer',                   genre:'Thrash Metal'},
+    {title:'Reign in Blood',          artist:'Slayer',                   genre:'Thrash Metal'},
+    {title:'South of Heaven',         artist:'Slayer',                   genre:'Thrash Metal'},
+    {title:'Seasons in the Abyss',    artist:'Slayer',                   genre:'Thrash Metal'},
+    {title:'Hammer Smashed Face',     artist:'Cannibal Corpse',          genre:'Death Metal'},
+    {title:'Toxic Waltz',             artist:'Exodus',                   genre:'Thrash Metal'},
+    {title:'Bonded by Blood',         artist:'Exodus',                   genre:'Thrash Metal'},
+    {title:'The Haunting',            artist:'Kamelot',                  genre:'Power Metal'},
+    {title:'March of Mephisto',       artist:'Kamelot',                  genre:'Power Metal'},
+    {title:'The Haunting',            artist:'Kamelot',                  genre:'Power Metal'},
   ],
   'G#': [
-    {title:'Walk',                   artist:'Pantera',           genre:'Groove Metal'},
-    {title:'Vulgar Display of Power',artist:'Pantera',           genre:'Groove Metal'},
-    {title:'5 Minutes Alone',        artist:'Pantera',           genre:'Groove Metal'},
-    {title:'This Love',              artist:'Pantera',           genre:'Groove Metal'},
-    {title:'A New Level',            artist:'Pantera',           genre:'Groove Metal'},
-    {title:'Stronger Than All',      artist:'Pantera',           genre:'Groove Metal'},
-    {title:'Becoming',               artist:'Pantera',           genre:'Groove Metal'},
-    {title:'Domination',             artist:'Pantera',           genre:'Groove Metal'},
-    {title:'I\'m Broken',            artist:'Pantera',           genre:'Groove Metal'},
-    {title:'Suicide Note Pt. I',     artist:'Pantera',           genre:'Groove Metal'},
+    {title:'Walk',                    artist:'Pantera',                  genre:'Groove Metal'},
+    {title:'Vulgar Display of Power', artist:'Pantera',                  genre:'Groove Metal'},
+    {title:'5 Minutes Alone',         artist:'Pantera',                  genre:'Groove Metal'},
+    {title:'This Love',               artist:'Pantera',                  genre:'Groove Metal'},
+    {title:'A New Level',             artist:'Pantera',                  genre:'Groove Metal'},
+    {title:'Becoming',                artist:'Pantera',                  genre:'Groove Metal'},
+    {title:'Domination',              artist:'Pantera',                  genre:'Groove Metal'},
+    {title:'I\'m Broken',             artist:'Pantera',                  genre:'Groove Metal'},
+    {title:'Suicide Note Pt. I',      artist:'Pantera',                  genre:'Groove Metal'},
+    {title:'Fucking Hostile',         artist:'Pantera',                  genre:'Groove Metal'},
   ],
   'D#': [
-    {title:'Toxicity',               artist:'System of a Down',  genre:'Nu Metal'},
-    {title:'Chop Suey!',             artist:'System of a Down',  genre:'Nu Metal'},
-    {title:'B.Y.O.B.',               artist:'System of a Down',  genre:'Nu Metal'},
-    {title:'Aerials',                artist:'System of a Down',  genre:'Nu Metal'},
-    {title:'Prison Song',            artist:'System of a Down',  genre:'Nu Metal'},
-    {title:'Sugar',                  artist:'System of a Down',  genre:'Nu Metal'},
-    {title:'Psycho',                 artist:'System of a Down',  genre:'Nu Metal'},
-    {title:'Question!',              artist:'System of a Down',  genre:'Nu Metal'},
-    {title:'Violent Pornography',    artist:'System of a Down',  genre:'Nu Metal'},
-    {title:'Dreaming',               artist:'System of a Down',  genre:'Nu Metal'},
+    {title:'Toxicity',                artist:'System of a Down',         genre:'Nu Metal'},
+    {title:'Chop Suey!',              artist:'System of a Down',         genre:'Nu Metal'},
+    {title:'B.Y.O.B.',                artist:'System of a Down',         genre:'Nu Metal'},
+    {title:'Aerials',                 artist:'System of a Down',         genre:'Nu Metal'},
+    {title:'Prison Song',             artist:'System of a Down',         genre:'Nu Metal'},
+    {title:'Sugar',                   artist:'System of a Down',         genre:'Nu Metal'},
+    {title:'Psycho',                  artist:'System of a Down',         genre:'Nu Metal'},
+    {title:'Question!',               artist:'System of a Down',         genre:'Nu Metal'},
+    {title:'Violent Pornography',     artist:'System of a Down',         genre:'Nu Metal'},
+    {title:'Dreaming',                artist:'System of a Down',         genre:'Nu Metal'},
   ],
   'A#': [
-    {title:'Black Hole Sun',         artist:'Soundgarden',       genre:'Alternative Metal'},
-    {title:'Rusty Cage',             artist:'Soundgarden',       genre:'Alternative Metal'},
-    {title:'Spoonman',               artist:'Soundgarden',       genre:'Alternative Metal'},
-    {title:'Outshined',              artist:'Soundgarden',       genre:'Alternative Metal'},
-    {title:'Fell on Black Days',     artist:'Soundgarden',       genre:'Alternative Metal'},
-    {title:'Jesus Christ Pose',      artist:'Soundgarden',       genre:'Alternative Metal'},
-    {title:'Burden in My Hand',      artist:'Soundgarden',       genre:'Alternative Metal'},
-    {title:'Pretty Noose',           artist:'Soundgarden',       genre:'Alternative Metal'},
-    {title:'My Wave',                artist:'Soundgarden',       genre:'Alternative Metal'},
-    {title:'Blow Up the Outside World', artist:'Soundgarden',    genre:'Alternative Metal'},
+    {title:'Black Hole Sun',          artist:'Soundgarden',              genre:'Alternative Metal'},
+    {title:'Rusty Cage',              artist:'Soundgarden',              genre:'Alternative Metal'},
+    {title:'Spoonman',                artist:'Soundgarden',              genre:'Alternative Metal'},
+    {title:'Outshined',               artist:'Soundgarden',              genre:'Alternative Metal'},
+    {title:'Fell on Black Days',      artist:'Soundgarden',              genre:'Alternative Metal'},
+    {title:'Jesus Christ Pose',       artist:'Soundgarden',              genre:'Alternative Metal'},
+    {title:'Burden in My Hand',       artist:'Soundgarden',              genre:'Alternative Metal'},
+    {title:'Pretty Noose',            artist:'Soundgarden',              genre:'Alternative Metal'},
+    {title:'My Wave',                 artist:'Soundgarden',              genre:'Alternative Metal'},
+    {title:'Blow Up the Outside World',artist:'Soundgarden',             genre:'Alternative Metal'},
   ],
 };
 
-// Alias enharmonic keys
-SONG_DB['Db'] = SONG_DB['C#'];
-SONG_DB['Eb'] = SONG_DB['D#'];
-SONG_DB['Gb'] = SONG_DB['F#'];
-SONG_DB['Ab'] = SONG_DB['G#'];
-SONG_DB['Bb'] = SONG_DB['A#'];
+// Major-based songs (major pentatonic)
+const SONG_DB_MAJOR = {
+  'A': [
+    {title:'Sweet Home Alabama',      artist:'Lynyrd Skynyrd',           genre:'Southern Rock'},
+    {title:'Walk This Way',           artist:'Aerosmith',                genre:'Hard Rock'},
+    {title:'You Shook Me All Night',  artist:'AC/DC',                    genre:'Hard Rock'},
+    {title:'Highway to Hell',         artist:'AC/DC',                    genre:'Hard Rock'},
+    {title:'Rock and Roll',           artist:'Led Zeppelin',             genre:'Hard Rock'},
+    {title:'Jump',                    artist:'Van Halen',                genre:'Hard Rock'},
+    {title:'Brown Eyed Girl',         artist:'Van Morrison',             genre:'Rock'},
+    {title:'Old Time Rock & Roll',    artist:'Bob Seger',                genre:'Rock'},
+    {title:'Johnny B. Goode',         artist:'Chuck Berry',              genre:'Rock \'n\' Roll'},
+    {title:'Pride and Joy',           artist:'Stevie Ray Vaughan',       genre:'Blues Rock'},
+  ],
+  'E': [
+    {title:'Eruption',                artist:'Van Halen',                genre:'Hard Rock'},
+    {title:'Jump',                    artist:'Van Halen',                genre:'Hard Rock'},
+    {title:'Sharp Dressed Man',       artist:'ZZ Top',                   genre:'Blues Rock'},
+    {title:'Gimme All Your Lovin\'',  artist:'ZZ Top',                   genre:'Blues Rock'},
+    {title:'Jessie\'s Girl',          artist:'Rick Springfield',         genre:'Rock'},
+    {title:'Rock You Like a Hurricane',artist:'Scorpions',               genre:'Hard Rock'},
+    {title:'Living on a Prayer',      artist:'Bon Jovi',                 genre:'Hard Rock'},
+    {title:'Wanted Dead or Alive',    artist:'Bon Jovi',                 genre:'Hard Rock'},
+    {title:'Pour Some Sugar on Me',   artist:'Def Leppard',              genre:'Hard Rock'},
+    {title:'Photograph',              artist:'Def Leppard',              genre:'Hard Rock'},
+  ],
+  'D': [
+    {title:'Black Dog',               artist:'Led Zeppelin',             genre:'Hard Rock'},
+    {title:'Bark at the Moon',        artist:'Ozzy Osbourne',            genre:'Heavy Metal'},
+    {title:'Fortunate Son',           artist:'Creedence Clearwater Revival',genre:'Rock'},
+    {title:'Bad to the Bone',         artist:'George Thorogood',         genre:'Blues Rock'},
+    {title:'I Love Rock N Roll',      artist:'Joan Jett',                genre:'Hard Rock'},
+    {title:'Should I Stay or Should I Go',artist:'The Clash',           genre:'Punk Rock'},
+    {title:'Teenage Kicks',           artist:'The Undertones',           genre:'Punk Rock'},
+    {title:'Free Fallin\'',           artist:'Tom Petty',                genre:'Rock'},
+    {title:'Running Down a Dream',    artist:'Tom Petty',                genre:'Rock'},
+    {title:'American Girl',           artist:'Tom Petty',                genre:'Rock'},
+  ],
+  'G': [
+    {title:'Stairway to Heaven',      artist:'Led Zeppelin',             genre:'Hard Rock'},
+    {title:'Sweet Child O\' Mine',    artist:'Guns N\' Roses',           genre:'Hard Rock'},
+    {title:'Knockin\' on Heaven\'s Door',artist:'Guns N\' Roses',        genre:'Rock'},
+    {title:'Wish You Were Here',      artist:'Pink Floyd',               genre:'Rock'},
+    {title:'Comfortably Numb',        artist:'Pink Floyd',               genre:'Rock'},
+    {title:'Every Breath You Take',   artist:'The Police',               genre:'Rock'},
+    {title:'With or Without You',     artist:'U2',                       genre:'Rock'},
+    {title:'Here Comes the Sun',      artist:'The Beatles',              genre:'Rock'},
+    {title:'Let It Be',               artist:'The Beatles',              genre:'Rock'},
+    {title:'Hey Joe',                 artist:'Jimi Hendrix',             genre:'Blues Rock'},
+  ],
+  'C': [
+    {title:'Welcome to the Jungle',   artist:'Guns N\' Roses',           genre:'Hard Rock'},
+    {title:'Like a Stone',            artist:'Audioslave',               genre:'Hard Rock'},
+    {title:'Californication',         artist:'Red Hot Chili Peppers',    genre:'Alternative Rock'},
+    {title:'Under the Bridge',        artist:'Red Hot Chili Peppers',    genre:'Alternative Rock'},
+    {title:'Creep',                   artist:'Radiohead',                genre:'Alternative Rock'},
+    {title:'Yellow',                  artist:'Coldplay',                 genre:'Alternative Rock'},
+    {title:'The Scientist',           artist:'Coldplay',                 genre:'Alternative Rock'},
+    {title:'Angels',                  artist:'Robbie Williams',          genre:'Pop Rock'},
+    {title:'Everlong',                artist:'Foo Fighters',             genre:'Alternative Rock'},
+    {title:'Best of You',             artist:'Foo Fighters',             genre:'Alternative Rock'},
+  ],
+  'B': [
+    {title:'Smells Like Teen Spirit',  artist:'Nirvana',                 genre:'Grunge'},
+    {title:'Come as You Are',          artist:'Nirvana',                 genre:'Grunge'},
+    {title:'In Bloom',                 artist:'Nirvana',                 genre:'Grunge'},
+    {title:'Lithium',                  artist:'Nirvana',                 genre:'Grunge'},
+    {title:'Polly',                    artist:'Nirvana',                 genre:'Grunge'},
+    {title:'About a Girl',             artist:'Nirvana',                 genre:'Grunge'},
+    {title:'Rape Me',                  artist:'Nirvana',                 genre:'Grunge'},
+    {title:'All Apologies',            artist:'Nirvana',                 genre:'Grunge'},
+    {title:'Heart-Shaped Box',         artist:'Nirvana',                 genre:'Grunge'},
+    {title:'Pennyroyal Tea',           artist:'Nirvana',                 genre:'Grunge'},
+  ],
+  'F#': [
+    {title:'Wonderwall',               artist:'Oasis',                   genre:'Britpop'},
+    {title:'Don\'t Look Back in Anger',artist:'Oasis',                   genre:'Britpop'},
+    {title:'Champagne Supernova',      artist:'Oasis',                   genre:'Britpop'},
+    {title:'Live Forever',             artist:'Oasis',                   genre:'Britpop'},
+    {title:'Supersonic',               artist:'Oasis',                   genre:'Britpop'},
+    {title:'Cigarettes & Alcohol',     artist:'Oasis',                   genre:'Britpop'},
+    {title:'Some Might Say',           artist:'Oasis',                   genre:'Britpop'},
+    {title:'Cast No Shadow',           artist:'Oasis',                   genre:'Britpop'},
+    {title:'Morning Glory',            artist:'Oasis',                   genre:'Britpop'},
+    {title:'Half the World Away',      artist:'Oasis',                   genre:'Britpop'},
+  ],
+  'F': [
+    {title:'Eye of the Tiger',         artist:'Survivor',                genre:'Hard Rock'},
+    {title:'We Will Rock You',         artist:'Queen',                   genre:'Hard Rock'},
+    {title:'We Are the Champions',     artist:'Queen',                   genre:'Hard Rock'},
+    {title:'Another One Bites the Dust',artist:'Queen',                  genre:'Hard Rock'},
+    {title:'Somebody to Love',         artist:'Queen',                   genre:'Hard Rock'},
+    {title:'Don\'t Stop Me Now',       artist:'Queen',                   genre:'Hard Rock'},
+    {title:'Killer Queen',             artist:'Queen',                   genre:'Hard Rock'},
+    {title:'Under Pressure',           artist:'Queen',                   genre:'Hard Rock'},
+    {title:'Fat Bottomed Girls',       artist:'Queen',                   genre:'Hard Rock'},
+    {title:'Radio Ga Ga',              artist:'Queen',                   genre:'Hard Rock'},
+  ],
+  'C#': [
+    {title:'Mr. Brightside',           artist:'The Killers',             genre:'Indie Rock'},
+    {title:'Somebody Told Me',         artist:'The Killers',             genre:'Indie Rock'},
+    {title:'All These Things That I\'ve Done',artist:'The Killers',      genre:'Indie Rock'},
+    {title:'Human',                    artist:'The Killers',             genre:'Indie Rock'},
+    {title:'Spaceman',                 artist:'The Killers',             genre:'Indie Rock'},
+    {title:'Sam\'s Town',              artist:'The Killers',             genre:'Indie Rock'},
+    {title:'Read My Mind',             artist:'The Killers',             genre:'Indie Rock'},
+    {title:'For Reasons Unknown',      artist:'The Killers',             genre:'Indie Rock'},
+    {title:'The Man',                  artist:'The Killers',             genre:'Indie Rock'},
+    {title:'Runaways',                 artist:'The Killers',             genre:'Indie Rock'},
+  ],
+  'G#': [
+    {title:'November Rain',            artist:'Guns N\' Roses',          genre:'Hard Rock'},
+    {title:'Patience',                 artist:'Guns N\' Roses',          genre:'Hard Rock'},
+    {title:'Paradise City',            artist:'Guns N\' Roses',          genre:'Hard Rock'},
+    {title:'Estranged',                artist:'Guns N\' Roses',          genre:'Hard Rock'},
+    {title:'Don\'t Cry',               artist:'Guns N\' Roses',          genre:'Hard Rock'},
+    {title:'Nightrain',                artist:'Guns N\' Roses',          genre:'Hard Rock'},
+    {title:'Mr. Brownstone',           artist:'Guns N\' Roses',          genre:'Hard Rock'},
+    {title:'Rocket Queen',             artist:'Guns N\' Roses',          genre:'Hard Rock'},
+    {title:'My Michelle',              artist:'Guns N\' Roses',          genre:'Hard Rock'},
+    {title:'You Could Be Mine',        artist:'Guns N\' Roses',          genre:'Hard Rock'},
+  ],
+  'D#': [
+    {title:'Hysteria',                 artist:'Def Leppard',             genre:'Hard Rock'},
+    {title:'Pour Some Sugar on Me',    artist:'Def Leppard',             genre:'Hard Rock'},
+    {title:'Love Bites',               artist:'Def Leppard',             genre:'Hard Rock'},
+    {title:'Animal',                   artist:'Def Leppard',             genre:'Hard Rock'},
+    {title:'Armageddon It',            artist:'Def Leppard',             genre:'Hard Rock'},
+    {title:'Rocket',                   artist:'Def Leppard',             genre:'Hard Rock'},
+    {title:'Two Steps Behind',         artist:'Def Leppard',             genre:'Hard Rock'},
+    {title:'Have You Ever Needed Someone So Bad',artist:'Def Leppard',   genre:'Hard Rock'},
+    {title:'Let\'s Get Rocked',        artist:'Def Leppard',             genre:'Hard Rock'},
+    {title:'Tonight',                  artist:'Def Leppard',             genre:'Hard Rock'},
+  ],
+  'A#': [
+    {title:'Should I Stay or Should I Go',artist:'The Clash',           genre:'Punk Rock'},
+    {title:'Rock the Casbah',          artist:'The Clash',               genre:'Punk Rock'},
+    {title:'Train in Vain',            artist:'The Clash',               genre:'Punk Rock'},
+    {title:'London Calling',           artist:'The Clash',               genre:'Punk Rock'},
+    {title:'Lost in the Supermarket',  artist:'The Clash',               genre:'Punk Rock'},
+    {title:'The Magnificent Seven',    artist:'The Clash',               genre:'Punk Rock'},
+    {title:'Bankrobber',               artist:'The Clash',               genre:'Punk Rock'},
+    {title:'Straight to Hell',         artist:'The Clash',               genre:'Punk Rock'},
+    {title:'Know Your Rights',         artist:'The Clash',               genre:'Punk Rock'},
+    {title:'Clampdown',                artist:'The Clash',               genre:'Punk Rock'},
+  ],
+};
+
+// Enharmonic aliases
+['minor','major'].forEach(type => {
+  const db = type === 'minor' ? SONG_DB_MINOR : SONG_DB_MAJOR;
+  db['Db'] = db['C#']; db['Eb'] = db['D#']; db['Gb'] = db['F#'];
+  db['Ab'] = db['G#']; db['Bb'] = db['A#'];
+});
 
 async function fetchSongSuggestions(key, scale) {
   const container = document.getElementById('songs-container');
   const subtitle  = document.getElementById('songs-subtitle');
-  if (_lastSongKey === key && _lastSongScale === scale) return;
+
+  // Always re-render when called (no stale cache)
   _lastSongKey = key; _lastSongScale = scale;
 
-  const scaleNames = { minor_penta: 'molli', major_penta: 'duuri', blues: 'blues' };
-  subtitle.textContent = `${key} ${scaleNames[scale] || scale} · Rock · Heavy · Metal`;
+  const isMajor = scale === 'major_penta';
+  const db      = isMajor ? SONG_DB_MAJOR : SONG_DB_MINOR;
+  const scaleLabel = { minor_penta:'molli-pentatoninen', major_penta:'duuri-pentatoninen', blues:'blues' };
+  subtitle.textContent = `${key} ${scaleLabel[scale] || scale} · Rock · Heavy · Metal`;
 
-  const songs = SONG_DB[key] || SONG_DB['A'];
+  const songs = db[key] || db['A'];
   renderSongCards(songs.slice(0, 10));
 }
+
 
 function renderSongCards(songs) {
   const container = document.getElementById('songs-container');
@@ -2988,6 +3966,8 @@ document.getElementById('ex-scale').addEventListener('change', () => {
 });
 
 /* ── 12. INIT ─────────────────────────────────────────────────────────────── */
+buildInstManager();
+rebuildPanels();
 render();
 </script>
 </body>
