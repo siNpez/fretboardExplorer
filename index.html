@@ -6,14 +6,6 @@
 <title>Guitar Fretboard Explorer</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  /* ╔══════════════════════════════════════════════════════════════════╗
-     ║  GUITAR FRETBOARD EXPLORER — UI/UX REDESIGN                      ║
-     ║  Design principles:                                              ║
-     ║  1. CLARITY FIRST — note markings must be instantly readable     ║
-     ║  2. STRONG HIERARCHY — scale tones are the hero                  ║
-     ║  3. MOBILE-FIRST — works equally well on phones & desktops       ║
-     ║  4. LESS CHROME — quieter UI lets the music notation breathe     ║
-     ╚══════════════════════════════════════════════════════════════════╝ */
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -368,6 +360,12 @@
     padding: 18px 22px;
     margin-bottom: 18px;
     box-shadow: var(--shadow-sm);
+  }
+  .scale-label-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
   }
   .info-bar {
     display: flex;
@@ -1477,6 +1475,7 @@
     <div class="ctrl-group">
       <label>Sävellaji</label>
       <select id="sel-key">
+        <option value="_all" selected>◎ Kaikki sävelet</option>
         <option value="C">C</option>
         <option value="C#">C# / Db</option>
         <option value="D">D</option>
@@ -1572,18 +1571,16 @@
       </div>
     </div>
 
-    <!-- Clear button -->
-    <div class="ctrl-group">
-      <label>&nbsp;</label>
-      <button class="btn-clear" id="btn-clear">✕ Tyhjennä</button>
-    </div>
+
 
   </div><!-- /controls -->
 
   <!-- Info panel: scale name + notes (the hero of the page) -->
   <div class="info-panel">
     <div class="info-bar">
-      <div class="scale-label" id="scale-label">C Duuri</div>
+      <div class="scale-label-row">
+        <div class="scale-label" id="scale-label">C Duuri</div>
+      </div>
       <div class="scale-divider"></div>
       <div class="scale-notes" id="scale-notes-bar"></div>
     </div>
@@ -2006,7 +2003,38 @@ const FB = {
 /** Standard fret inlay positions */
 const INLAY_FRETS = [3,5,7,9,12,15,17,19,21,24];
 
-/* ── 4. STATE ─────────────────────────────────────────────────────────────── */
+/* ── 4. CHROMATIC COLOR WHEEL ────────────────────────────────────────────── */
+/** Muted fill + bright accent per chromatic note index (0=C … 11=B) */
+const CHROMA_FILL = [
+  '#7c3aed', // C  — violetti
+  '#a855b5', // C# — magenta-violetti
+  '#16a34a', // D  — vihreä
+  '#65a30d', // D# — keltavihreä
+  '#ea580c', // E  — oranssi
+  '#dc2626', // F  — punainen
+  '#db2777', // F# — pinkki
+  '#0284c7', // G  — sininen
+  '#0891b2', // G# — syaani
+  '#059669', // A  — smaragdi
+  '#d97706', // A# — keltainen
+  '#7e22ce', // B  — syvävioletti
+];
+const CHROMA_BRIGHT = [
+  '#c4b5fd', // C
+  '#e09ae8', // C#
+  '#86efac', // D
+  '#bef264', // D#
+  '#fdba74', // E
+  '#fca5a5', // F
+  '#f9a8d4', // F#
+  '#7dd3fc', // G
+  '#67e8f9', // G#
+  '#6ee7b7', // A
+  '#fde68a', // A#
+  '#d8b4fe', // B
+];
+
+/* ── 5. STATE ─────────────────────────────────────────────────────────────── */
 
 const state = {
   key:        'C',
@@ -2018,7 +2046,8 @@ const state = {
   showNames:  true,
   showIntervals: false,
   rootsOnly:  false,
-  cleared:    false,
+  cleared:    true,    // start in "all notes" mode
+  selectedMidi: null,  // exact MIDI note highlighted in all-notes mode (null = none)
 };
 
 /* ── 5. MUSIC HELPERS ────────────────────────────────────────────────────── */
@@ -2331,15 +2360,24 @@ function renderFretboard() {
     el('rect', {
       x: FB.nutWidth/2 - labelW/2, y: stringY(s) - 9,
       width: labelW, height: 18, rx: 4,
-      fill: isRoot ? 'var(--root-soft)' : inScale ? 'var(--scale-soft)' : 'rgba(255,255,255,.04)',
-      stroke: isRoot ? 'var(--root)' : inScale ? 'var(--scale)' : 'rgba(255,255,255,.12)',
+      fill: state.cleared ? CHROMA_FILL[ni] + '44'
+          : isRoot ? 'var(--root-soft)'
+          : inScale ? 'var(--scale-soft)'
+          : 'rgba(255,255,255,.04)',
+      stroke: state.cleared ? CHROMA_FILL[ni]
+          : isRoot ? 'var(--root)'
+          : inScale ? 'var(--scale)'
+          : 'rgba(255,255,255,.12)',
       'stroke-width': 1,
       'pointer-events': 'none'
     });
     el('text', {
       x: FB.nutWidth / 2, y: stringY(s) + 4,
       'text-anchor': 'middle',
-      fill: isRoot ? 'var(--root-bright)' : inScale ? 'var(--scale-bright)' : '#9a9080',
+      fill: state.cleared ? CHROMA_BRIGHT[ni]
+          : isRoot ? 'var(--root-bright)'
+          : inScale ? 'var(--scale-bright)'
+          : '#9a9080',
       'font-size': 11,
       'font-family': 'DM Mono, monospace',
       'font-weight': 700,
@@ -2348,91 +2386,88 @@ function renderFretboard() {
   }
 
   // ── Note dots
-  const _dotPositions = []; // collect for hover ring layer
-  if (!state.cleared) {
-    for (let s = 0; s < nStrings; s++) {
-      for (let f = 0; f <= nFrets; f++) {
-        const ni = noteAtFret(s, f);
+  const _dotPositions = [];
 
-        // Skip if note not in scale
-        if (!noteSet.has(ni)) continue;
+  // CHROMA_FILL / CHROMA_BRIGHT defined globally below
 
-        // Skip if rootsOnly and not root
-        if (state.rootsOnly && ni !== root) continue;
+  for (let s = 0; s < nStrings; s++) {
+    for (let f = 0; f <= nFrets; f++) {
+      const ni = noteAtFret(s, f);
+      const inScale = noteSet.has(ni);
+      const isRoot  = ni === root;
 
-        // Skip if shape filter is active and this position isn't in it
-        if (shapePositions && !shapePositions.has(`${s},${f}`)) continue;
-
-        // Skip if diatonic position filter is active and fret is outside range
-        if (posRanges && !posRanges.some(([lo, hi]) => f >= lo && f <= hi)) continue;
-
-        const isRoot = ni === root;
+      if (state.cleared) {
+        // ── ALL CHROMATIC NOTES MODE ─────────────────────────────────
         const cx = fretCenterX(f);
         const cy = stringY(s);
-
-        // Glow backdrop — wider, softer
-        el('circle', {
-          cx, cy,
-          r: FB.dotR + 7,
-          fill: isRoot ? 'var(--root-glow)' : 'var(--scale-glow)',
-          opacity: 0.4,
-          'pointer-events': 'none',
-          filter: 'blur(2px)'
-        });
-
-        // Main dot — carries data-midi (MIDI note number incl. octave) for hover detection
         const midi = TUNINGS[state.tuning][s] + f;
-        el('circle', {
-          cx, cy,
-          r: FB.dotR,
+        const cFill   = CHROMA_FILL[ni];
+        const cBright = CHROMA_BRIGHT[ni];
+        const isSel = state.selectedMidi === midi;
+
+        // Glow (bigger + brighter for selected)
+        el('circle', { cx, cy, r: FB.dotR + (isSel ? 9 : 5),
+          fill: cFill, opacity: isSel ? 0.6 : 0.35,
+          'pointer-events': 'none', filter: 'blur(2px)' });
+        // Dot — always full opacity, selected gets thicker stroke
+        el('circle', { cx, cy, r: FB.dotR,
+          fill: cFill, stroke: isSel ? cBright : cFill,
+          'stroke-width': isSel ? 3 : 1.8,
+          'data-midi': midi, style: 'cursor:pointer' });
+        // 3-D highlight
+        el('circle', { cx, cy: cy - FB.dotR * 0.35, r: FB.dotR * 0.55,
+          fill: 'rgba(255,255,255,.18)', 'pointer-events': 'none' });
+        // Label
+        const label = CHROMATIC[ni];
+        el('text', { x: cx, y: cy + (label.length > 1 ? 3 : 4),
+          'text-anchor': 'middle', fill: '#fff',
+          'font-size': label.length > 1 ? 9 : 11,
+          'font-family': 'DM Mono, monospace', 'font-weight': '800',
+          'pointer-events': 'none' }).textContent = label;
+        _dotPositions.push({ cx, cy, midi });
+
+      } else {
+        // ── SCALE MODE ───────────────────────────────────────────────
+        if (!inScale) continue;
+        if (state.rootsOnly && !isRoot) continue;
+        if (shapePositions && !shapePositions.has(`${s},${f}`)) continue;
+        if (posRanges && !posRanges.some(([lo, hi]) => f >= lo && f <= hi)) continue;
+
+        const cx = fretCenterX(f);
+        const cy = stringY(s);
+        const midi = TUNINGS[state.tuning][s] + f;
+
+        el('circle', { cx, cy, r: FB.dotR + 7,
+          fill: isRoot ? 'var(--root-glow)' : 'var(--scale-glow)',
+          opacity: 0.4, 'pointer-events': 'none', filter: 'blur(2px)' });
+        el('circle', { cx, cy, r: FB.dotR,
           fill: isRoot ? 'var(--root)' : 'var(--scale)',
           stroke: isRoot ? 'var(--root-bright)' : 'var(--scale-bright)',
-          'stroke-width': 2,
-          'data-midi': midi,
-          style: 'cursor:pointer'
-        });
-
-        // Inner highlight for 3D feel
-        el('circle', {
-          cx, cy: cy - FB.dotR * 0.35, r: FB.dotR * 0.6,
+          'stroke-width': 2, 'data-midi': midi, style: 'cursor:pointer' });
+        el('circle', { cx, cy: cy - FB.dotR * 0.35, r: FB.dotR * 0.6,
           fill: isRoot ? 'rgba(255,220,160,.25)' : 'rgba(200,240,255,.22)',
-          'pointer-events': 'none'
-        });
+          'pointer-events': 'none' });
 
-        // Label inside dot — BIGGER & clearer
         let label = '';
-        if (state.showIntervals && state.showNames) {
-          label = CHROMATIC[ni];
-        } else if (state.showIntervals) {
-          label = intervalMap[ni] || '';
-        } else if (state.showNames) {
-          label = CHROMATIC[ni];
-        }
+        if (state.showIntervals && state.showNames) label = CHROMATIC[ni];
+        else if (state.showIntervals)               label = intervalMap[ni] || '';
+        else if (state.showNames)                   label = CHROMATIC[ni];
 
         if (label) {
-          const fontSize = label.length > 2 ? 9 : 11;
-          el('text', {
-            x: cx, y: cy + (label.length > 2 ? 3 : 4),
+          el('text', { x: cx, y: cy + (label.length > 2 ? 3 : 4),
             'text-anchor': 'middle',
             fill: isRoot ? '#1a0f00' : '#022731',
-            'font-size': fontSize,
-            'font-family': 'DM Mono, monospace',
-            'font-weight': '800',
-            'pointer-events': 'none'
-          }).textContent = label;
+            'font-size': label.length > 2 ? 9 : 11,
+            'font-family': 'DM Mono, monospace', 'font-weight': '800',
+            'pointer-events': 'none' }).textContent = label;
         }
 
-        // If showing both names + intervals, add interval as small sub-label below dot
         if (state.showIntervals && state.showNames && intervalMap[ni]) {
-          el('text', {
-            x: cx, y: cy + FB.dotR + 10,
+          el('text', { x: cx, y: cy + FB.dotR + 10,
             'text-anchor': 'middle',
             fill: isRoot ? 'var(--root-bright)' : 'var(--scale-bright)',
-            'font-size': 8,
-            'font-family': 'DM Mono, monospace',
-            'font-weight': '700',
-            'pointer-events': 'none'
-          }).textContent = intervalMap[ni];
+            'font-size': 8, 'font-family': 'DM Mono, monospace', 'font-weight': '700',
+            'pointer-events': 'none' }).textContent = intervalMap[ni];
         }
 
         _dotPositions.push({ cx, cy, midi });
@@ -2459,12 +2494,32 @@ function renderFretboard() {
 
 function updateInfoBar() {
   const { root, noteSet, intervalMap } = getScaleData();
+  const bar = document.getElementById('scale-notes-bar');
+  bar.innerHTML = '';
+
+  if (state.cleared) {
+    document.getElementById('scale-label').textContent = 'Kaikki sävelet';
+    // Show all 12 chromatic notes with their colors
+    CHROMATIC.forEach((noteName, ni) => {
+      const badge = document.createElement('div');
+      badge.className = 'scale-badge scale-tone';
+      badge.style.setProperty('--badge-color', CHROMA_FILL[ni]);
+      badge.style.borderColor = CHROMA_FILL[ni];
+      badge.style.background = CHROMA_FILL[ni] + '22';
+      const noteEl = document.createElement('div');
+      noteEl.className = 'badge-note';
+      noteEl.style.color = CHROMA_BRIGHT[ni];
+      noteEl.textContent = noteName;
+      badge.appendChild(noteEl);
+      bar.appendChild(badge);
+    });
+    return;
+  }
+
   const modeName = SCALE_LABELS[state.mode] || state.mode;
   document.getElementById('scale-label').textContent =
     `${state.key} ${modeName}`;
 
-  const bar = document.getElementById('scale-notes-bar');
-  bar.innerHTML = '';
   noteSet.forEach(ni => {
     const badge = document.createElement('div');
     const isRoot = ni === root;
@@ -2626,14 +2681,42 @@ function renderUkulele() {
 
   // Note dots + hover rings
   const _dots = [];
-  if (!state.cleared) {
-    for (let s = 0; s < nStrings; s++) {
-      for (let f = 0; f <= nFrets; f++) {
-        const ni = noteAtUkuFret(s, f);
-        if (!noteSet.has(ni)) continue;
-        if (state.rootsOnly && ni !== root) continue;
+  for (let s = 0; s < nStrings; s++) {
+    for (let f = 0; f <= nFrets; f++) {
+      const ni = noteAtUkuFret(s, f);
+      const inScale = noteSet.has(ni);
+      const isRoot  = ni === root;
 
-        const isRoot = ni === root;
+      if (state.cleared) {
+        // All chromatic notes
+        const cx = fretCenterX(f);
+        const cy = stringY(s);
+        const midi = UKU_STRINGS[s] + f;
+        const cFill   = CHROMA_FILL[ni];
+        const cBright = CHROMA_BRIGHT[ni];
+        const isSel   = state.selectedMidi === midi;
+        el('circle', { cx, cy, r: DOT_R + (isSel ? 9 : 5),
+          fill: cFill, opacity: isSel ? 0.6 : 0.35,
+          'pointer-events': 'none', filter: 'blur(2px)' });
+        el('circle', { cx, cy, r: DOT_R,
+          fill: cFill, stroke: isSel ? cBright : cFill, 'stroke-width': isSel ? 3 : 1.8,
+          'data-midi': midi, style: 'cursor:pointer' });
+        el('circle', { cx, cy: cy - DOT_R * 0.35, r: DOT_R * 0.55,
+          fill: 'rgba(255,255,255,.18)', 'pointer-events': 'none' });
+        const lbl = CHROMATIC[ni];
+        el('text', { x: cx, y: cy + (lbl.length > 1 ? 3 : 4),
+          'text-anchor': 'middle', fill: '#fff',
+          'font-size': lbl.length > 1 ? 9 : 11,
+          'font-family': 'DM Mono, monospace', 'font-weight': '800',
+          'pointer-events': 'none' }).textContent = lbl;
+        _dots.push({ cx, cy, midi });
+        continue;
+      }
+
+      if (!inScale) continue;
+      if (state.rootsOnly && !isRoot) continue;
+
+      {
         const cx = fretCenterX(f);
         const cy = stringY(s);
         const midi = UKU_STRINGS[s] + f;
@@ -2747,23 +2830,57 @@ function renderPiano() {
       if (km.black) continue;
       const x = (oct * 7 + km.wi) * WW + 1;
       const isRoot = ni === root, inScale = noteSet.has(ni);
-      let fill, strokeCol, strokeW;
-      if (isRoot)       { fill='var(--root)';            strokeCol='var(--root-bright)';  strokeW=2.5; }
-      else if (inScale) { fill='rgba(77,201,232,.35)';   strokeCol='var(--scale)';        strokeW=2;   }
-      else              { fill='#f0ece0';                strokeCol='#a8a090';             strokeW=0.6; }
+      const pianoMidi = (START_OCT+oct+1)*12+ni;
+      const isClearedSel = state.cleared && state.selectedMidi === pianoMidi;
+      const cFillW = CHROMA_FILL[ni], cBrightW = CHROMA_BRIGHT[ni];
+
+      // Key background — plain ivory always (balls carry the highlight)
+      let fill = '#f0ece0', strokeCol = '#b0a898', strokeW = 0.6;
+      if (isClearedSel) { fill = cFillW; strokeCol = cBrightW; strokeW = 2.5; }
+
       el('rect',{x,y:1,width:WW-2,height:WH-1,fill,stroke:strokeCol,'stroke-width':strokeW,rx:3,
-        'data-midi':(START_OCT+oct+1)*12+ni,style:'cursor:pointer'});
-      // Top accent bar for in-scale keys
-      if (inScale||isRoot) el('rect',{x,y:1,width:WW-2,height:8,rx:3,'pointer-events':'none',
-        fill:isRoot?'rgba(255,200,120,.75)':'rgba(77,201,232,.7)'});
-      // Interval label (middle area)
-      if (inScale) el('text',{x:x+(WW-2)/2,y:WH-30,'text-anchor':'middle','pointer-events':'none',
-        fill:isRoot?'rgba(255,255,255,.95)':'rgba(2,39,49,.95)','font-size':11,
-        'font-family':'DM Mono, monospace','font-weight':'700'}).textContent=intervalMap[ni]||'';
-      // Note name (bottom)
-      el('text',{x:x+(WW-2)/2,y:WH-10,'text-anchor':'middle','pointer-events':'none',
-        fill:isRoot?'#1a0f00':inScale?'#022731':'#888','font-size':11,
-        'font-family':'DM Mono, monospace','font-weight':inScale?'700':'500'}).textContent=CHROMATIC[ni];
+        'data-midi':pianoMidi,style:'cursor:pointer'});
+
+      const ballR = Math.round(WW * 0.38);
+      const ballCx = x + (WW-2)/2;
+
+      // Ball indicator for scale notes (not in cleared mode)
+      if (!state.cleared && (isRoot || inScale)) {
+        const ballCy = WH - ballR - 8;
+        el('circle',{cx:ballCx,cy:ballCy,r:ballR+3,
+          fill:isRoot?'var(--root-glow)':'var(--scale-glow)',opacity:0.5,'pointer-events':'none'});
+        el('circle',{cx:ballCx,cy:ballCy,r:ballR,
+          fill:isRoot?'var(--root)':'var(--scale)',
+          stroke:isRoot?'var(--root-bright)':'var(--scale-bright)',
+          'stroke-width':1.5,'pointer-events':'none'});
+        el('circle',{cx:ballCx-ballR*0.28,cy:ballCy-ballR*0.3,r:ballR*0.3,
+          fill:'rgba(255,255,255,.3)','pointer-events':'none'});
+        const lbl = CHROMATIC[ni];
+        el('text',{x:ballCx,y:ballCy+ballR*0.38,'text-anchor':'middle','pointer-events':'none',
+          fill:isRoot?'#1a0f00':'#022731',
+          'font-size':Math.round(ballR*0.95),'font-family':'DM Mono, monospace','font-weight':'800'
+        }).textContent=lbl;
+      } else if (!state.cleared) {
+        // Out-of-scale: muted note name at bottom
+        el('text',{x:ballCx,y:WH-10,'text-anchor':'middle','pointer-events':'none',
+          fill:'#aaa','font-size':10,'font-family':'DM Mono, monospace','font-weight':'400'
+        }).textContent=CHROMATIC[ni];
+      } else {
+        // Cleared mode: always show note name at bottom; ball only if selected
+        if (isClearedSel) {
+          const ballCy = WH - ballR - 8;
+          el('circle',{cx:ballCx,cy:ballCy,r:ballR,fill:cBrightW,stroke:'rgba(255,255,255,.6)',
+            'stroke-width':1.5,'pointer-events':'none'});
+          el('text',{x:ballCx,y:ballCy+ballR*0.38,'text-anchor':'middle','pointer-events':'none',
+            fill:'#fff','font-size':Math.round(ballR*0.95),'font-family':'DM Mono, monospace','font-weight':'800'
+          }).textContent=CHROMATIC[ni];
+        } else {
+          el('text',{x:ballCx,y:WH-10,'text-anchor':'middle','pointer-events':'none',
+            fill:'#888','font-size':10,'font-family':'DM Mono, monospace','font-weight':'500'
+          }).textContent=CHROMATIC[ni];
+        }
+      }
+
       _keyGeometry.push({ni,isBlack:false,x,y:1,w:WW-2,h:WH-1,rx:3,midi:(START_OCT+oct+1)*12+ni});
     }
   }
@@ -2775,20 +2892,57 @@ function renderPiano() {
       if (!km.black) continue;
       const x = oct*7*WW + km.xf*WW - BW/2;
       const isRoot = ni===root, inScale = noteSet.has(ni);
-      let fill, strokeCol;
-      if (isRoot)       { fill='var(--root)';     strokeCol='var(--root-bright)'; }
-      else if (inScale) { fill='var(--scale)';    strokeCol='var(--scale-bright)'; }
-      else              { fill='#0a0a0a';         strokeCol='#1a1a1a'; }
-      el('rect',{x,y:1,width:BW,height:BH,fill,stroke:strokeCol,'stroke-width': isRoot||inScale ? 1.5 : 1,rx:2,
-        'data-midi':(START_OCT+oct+1)*12+ni,style:'cursor:pointer'});
-      if (inScale||isRoot) el('rect',{x,y:1,width:BW,height:6,rx:2,'pointer-events':'none',
-        fill:isRoot?'rgba(255,200,120,.8)':'rgba(200,240,255,.6)'});
-      if (inScale) el('text',{x:x+BW/2,y:BH-22,'text-anchor':'middle','pointer-events':'none',
-        fill:'#fff','font-size':9,'font-family':'DM Mono, monospace','font-weight':'700'
-        }).textContent=intervalMap[ni]||'';
-      el('text',{x:x+BW/2,y:BH-8,'text-anchor':'middle','pointer-events':'none',
-        fill:inScale?'#fff':'#666','font-size':9,'font-family':'DM Mono, monospace',
-        'font-weight':'700'}).textContent=CHROMATIC[ni];
+      const pianoMidiB = (START_OCT+oct+1)*12+ni;
+      const isClearedSelB = state.cleared && state.selectedMidi === pianoMidiB;
+      const cFillB = CHROMA_FILL[ni], cBrightB = CHROMA_BRIGHT[ni];
+
+      // Key background — plain dark always
+      let fill = '#252220', strokeCol = '#3a3530', strokeW = 1;
+      if (isClearedSelB) { fill = cFillB; strokeCol = cBrightB; strokeW = 2; }
+
+      el('rect',{x,y:1,width:BW,height:BH,fill,stroke:strokeCol,
+        'stroke-width':strokeW,rx:2,'data-midi':(START_OCT+oct+1)*12+ni,style:'cursor:pointer'});
+
+      const ballR = Math.round(BW * 0.42);
+      const ballCx = x + BW/2;
+
+      // Ball indicator for scale notes (not in cleared mode)
+      if (!state.cleared && (isRoot || inScale)) {
+        const ballCy = BH - ballR - 6;
+        el('circle',{cx:ballCx,cy:ballCy,r:ballR+2,
+          fill:isRoot?'var(--root-glow)':'var(--scale-glow)',opacity:0.55,'pointer-events':'none'});
+        el('circle',{cx:ballCx,cy:ballCy,r:ballR,
+          fill:isRoot?'var(--root)':'var(--scale)',
+          stroke:isRoot?'var(--root-bright)':'var(--scale-bright)',
+          'stroke-width':1.5,'pointer-events':'none'});
+        el('circle',{cx:ballCx-ballR*0.28,cy:ballCy-ballR*0.3,r:ballR*0.3,
+          fill:'rgba(255,255,255,.3)','pointer-events':'none'});
+        const lbl = CHROMATIC[ni];
+        el('text',{x:ballCx,y:ballCy+ballR*0.38,'text-anchor':'middle','pointer-events':'none',
+          fill:isRoot?'#1a0f00':'#022731',
+          'font-size':Math.round(ballR*0.9),'font-family':'DM Mono, monospace','font-weight':'800'
+        }).textContent=lbl;
+      } else if (!state.cleared) {
+        // Out-of-scale black key: muted note name
+        el('text',{x:ballCx,y:BH-7,'text-anchor':'middle','pointer-events':'none',
+          fill:'#666','font-size':8,'font-family':'DM Mono, monospace','font-weight':'500'
+        }).textContent=CHROMATIC[ni];
+      } else {
+        // Cleared mode: always show note name; ball only if selected
+        if (isClearedSelB) {
+          const ballCy = BH - ballR - 6;
+          el('circle',{cx:ballCx,cy:ballCy,r:ballR,fill:cBrightB,stroke:'rgba(255,255,255,.5)',
+            'stroke-width':1.5,'pointer-events':'none'});
+          el('text',{x:ballCx,y:ballCy+ballR*0.38,'text-anchor':'middle','pointer-events':'none',
+            fill:'#fff','font-size':Math.round(ballR*0.9),'font-family':'DM Mono, monospace','font-weight':'800'
+          }).textContent=CHROMATIC[ni];
+        } else {
+          el('text',{x:ballCx,y:BH-7,'text-anchor':'middle','pointer-events':'none',
+            fill:'#c0b8a8','font-size':8,'font-family':'DM Mono, monospace','font-weight':'600'
+          }).textContent=CHROMATIC[ni];
+        }
+      }
+
       _keyGeometry.push({ni,isBlack:true,x,y:1,w:BW,h:BH,rx:2,midi:(START_OCT+oct+1)*12+ni});
     }
   }
@@ -3099,6 +3253,9 @@ function renderActiveInstruments() {
 }
 
 function render() {
+  // Keep key select in sync with state
+  const selKey = document.getElementById('sel-key');
+  if (selKey) selKey.value = state.cleared ? '_all' : state.key;
   updatePositionOptions();
   updateInfoBar();
   renderFretboard();
@@ -3129,10 +3286,20 @@ function setupHoverListeners() {
     const isRoot  = ni === root;
     const inScale = noteSet.has(ni);
     pillNote.textContent = CHROMATIC[ni] + oct;
-    pillInt.textContent  = inScale ? (intervalMap[ni] || '') : '—';
+    pillInt.textContent  = inScale ? (intervalMap[ni] || '') : (state.cleared ? '—' : '—');
     pillSrc.textContent  = srcLabel;
     pill.className = 'hover-pill visible' + (isRoot ? ' is-root' : inScale ? ' is-scale' : '');
     hint.style.opacity = '0';
+
+    // In "all notes" mode: highlight this specific note (by MIDI)
+    if (state.cleared) {
+      const prevMidi = state.selectedMidi;
+      state.selectedMidi = midi;
+      if (prevMidi !== midi) {
+        renderFretboard();
+        renderActiveInstruments();
+      }
+    }
   }
 
   function clearHover() {
@@ -3141,6 +3308,13 @@ function setupHoverListeners() {
     document.querySelectorAll('[data-hover-ring]').forEach(el => el.setAttribute('opacity','0'));
     pill.classList.remove('visible');
     hint.style.opacity = '0.5';
+
+    // In "all notes" mode: deselect note and restore all notes
+    if (state.cleared && state.selectedMidi !== null) {
+      state.selectedMidi = null;
+      renderFretboard();
+      renderActiveInstruments();
+    }
   }
 
   function attachHover(svgId, label) {
@@ -3181,8 +3355,14 @@ function setupHoverListeners() {
 
 
 document.getElementById('sel-key').addEventListener('change', e => {
-  state.key = e.target.value;
-  state.cleared = false;
+  if (e.target.value === '_all') {
+    state.cleared = true;
+    state.selectedMidi = null;
+  } else {
+    state.cleared = false;
+    state.selectedMidi = null;
+    state.key = e.target.value;
+  }
   render();
 });
 
@@ -3190,7 +3370,14 @@ document.getElementById('sel-key').addEventListener('change', e => {
 document.getElementById('sel-mode').addEventListener('change', e => {
   state.mode = e.target.value;
   state.position = 'all';
-  state.cleared = false;
+  // Selecting a scale exits "all notes" mode
+  if (state.cleared) {
+    state.cleared = false;
+    state.selectedMidi = null;
+    // Restore key select to last real key if currently showing _all
+    const selKey = document.getElementById('sel-key');
+    if (selKey.value === '_all') selKey.value = state.key;
+  }
   const hasBoxes = ['major_penta','minor_penta','blues'].includes(state.mode);
   document.getElementById('shape-group').style.display = hasBoxes ? '' : 'none';
   document.getElementById('shape-group').querySelector('label').textContent =
@@ -3210,7 +3397,6 @@ document.getElementById('sel-shape').addEventListener('change', e => {
 // Diatonic scale position
 document.getElementById('sel-position').addEventListener('change', e => {
   state.position = e.target.value;
-  state.cleared = false;
   render();
 });
 
@@ -3245,19 +3431,6 @@ document.getElementById('tog-roots').addEventListener('click', function() {
   state.rootsOnly = !state.rootsOnly;
   this.classList.toggle('active', state.rootsOnly);
   render();
-});
-
-// Clear
-document.getElementById('btn-clear').addEventListener('click', () => {
-  state.cleared = true;
-  renderFretboard();
-});
-
-// Un-clear on any selection change (already handled by mode/key change setting cleared=false)
-['sel-key','sel-mode','sel-shape','sel-position','sel-tuning','sel-frets'].forEach(id => {
-  document.getElementById(id).addEventListener('change', () => {
-    if (state.cleared) { state.cleared = false; }
-  });
 });
 
 
